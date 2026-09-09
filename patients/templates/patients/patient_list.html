@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DongDawn | Welcome</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffaf2 0%,
+                    #fff0df 50%,
+                    #f9e2cc 100%
+                );
+
+            color: #315c45;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1100px;
+
+            min-height: 650px;
+
+            background: rgba(255,255,255,0.82);
+
+            border-radius: 35px;
+
+            box-shadow:
+                0 20px 60px rgba(80,55,35,0.12);
+
+            overflow: hidden;
+
+            display: flex;
+        }
+
+
+        /* LEFT SIDE */
+
+        .welcome-section {
+
+            width: 55%;
+
+            padding: 65px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .logo {
+
+            width: 72px;
+            height: 72px;
+
+            border-radius: 22px;
+
+            background: #f4a261;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 25px rgba(244,162,97,0.25);
+        }
+
+
+        .brand {
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 18px;
+        }
+
+
+        h1 {
+
+            font-size: 52px;
+
+            line-height: 1.08;
+
+            color: #315c45;
+
+            margin-bottom: 20px;
+        }
+
+
+        .highlight {
+
+            color: #e76f51;
+        }
+
+
+        .description {
+
+            font-size: 20px;
+
+            line-height: 1.6;
+
+            color: #6f756f;
+
+            max-width: 570px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .login-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 250px;
+
+            padding: 17px 25px;
+
+            border-radius: 16px;
+
+            background: #315c45;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .login-button:hover {
+
+            background: #244936;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(49,92,69,0.2);
+        }
+
+
+        .footer {
+
+            margin-top: 45px;
+
+            color: #999;
+
+            font-size: 15px;
+        }
+
+
+        /* RIGHT SIDE */
+
+        .feature-section {
+
+            width: 45%;
+
+            background:
+                linear-gradient(
+                    160deg,
+                    #f7b267,
+                    #f4a261,
+                    #e76f51
+                );
+
+            padding: 45px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        .feature-title {
+
+            color: white;
+
+            font-size: 28px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .feature {
+
+            background: rgba(255,255,255,0.92);
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+
+            transition: 0.3s;
+        }
+
+
+        .feature:hover {
+
+            transform: translateX(6px);
+
+            background: white;
+        }
+
+
+        .feature-icon {
+
+            min-width: 52px;
+
+            height: 52px;
+
+            border-radius: 15px;
+
+            background: #fff3e8;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 26px;
+        }
+
+
+        .feature h3 {
+
+            color: #315c45;
+
+            font-size: 18px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .feature p {
+
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.4;
+        }
+
+
+        .quote {
+
+            color: white;
+
+            font-size: 17px;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-style: italic;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .page {
+
+                flex-direction: column;
+
+            }
+
+            .welcome-section {
+
+                width: 100%;
+
+                padding: 45px 30px;
+
+            }
+
+            .feature-section {
+
+                width: 100%;
+
+                padding: 35px 30px;
+
+            }
+
+            h1 {
+
+                font-size: 40px;
+
+            }
+
+            .description {
+
+                font-size: 17px;
+
+            }
+
+            .login-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome-section">
+
+
+        <div class="logo">
+            🏡
+        </div>
+
+
+        <div class="brand">
+            DONGDAWN
+        </div>
+
+
+        <h1>
+
+            Where Care
+            <span class="highlight">
+                Feels Like Home.
+            </span>
+
+        </h1>
+
+
+        <p class="description">
+
+            A gentle digital companion designed to
+            make everyday care, memories, activities,
+            and reminders feel simple and familiar.
+
+        </p>
+
+
+        <a
+            href="/patients/login/"
+            class="login-button"
+        >
+
+            Continue to My Care
+            &nbsp; →
+
+        </a>
+
+
+        <p class="footer">
+
+            Every memory matters. 💚
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- FEATURES -->
+
+    <section class="feature-section">
+
+
+        <h2 class="feature-title">
+
+            Your care, made simple
+
+        </h2>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <h3>
+                    Cognitive Activities
+                </h3>
+
+                <p>
+                    Gentle games to keep your mind
+                    active and engaged.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔔
+            </div>
+
+            <div>
+
+                <h3>
+                    Daily Reminders
+                </h3>
+
+                <p>
+                    Never forget important medicines,
+                    meals, or activities.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🎙️
+            </div>
+
+            <div>
+
+                <h3>
+                    Voice Assistance
+                </h3>
+
+                <p>
+                    Talk naturally and get help
+                    with everyday tasks.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ❤️
+            </div>
+
+            <div>
+
+                <h3>
+                    Connected Care
+                </h3>
+
+                <p>
+                    Stay connected with the people
+                    who care about you.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <p class="quote">
+
+            "Familiar care. Gentle support.
+            Every day."
+
+        </p>
+
+
+    </section>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title> DongDawn - Reminders</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .header p {
+            margin-top: 8px;
+            font-size: 17px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        .patients-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .patient-button {
+            display: inline-block;
+            padding: 14px 22px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .patient-button:hover {
+            opacity: 0.85;
+        }
+
+        .patient-name {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .reminder-card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+
+        .reminder-card h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .reminder-info {
+            margin: 8px 0;
+        }
+
+        .type {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #7f8c8d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-button:hover {
+            opacity: 0.85;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="header">
+
+        <h1> DongDawn</h1>
+
+        <p>Daily Reminder Dashboard</p>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- PATIENT SELECTION -->
+
+        <div class="section">
+
+            <h2>Select Patient</h2>
+
+            <div class="patients-list">
+
+                {% for patient in patients %}
+
+                    <a
+                        href="?patient_id={{ patient.id }}"
+                        class="patient-button"
+                    >
+                        {{ patient.name }}
+                    </a>
+
+                {% empty %}
+
+                    <p class="no-data">
+                        No patients available.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        {% if selected_patient %}
+
+
+        <!-- SELECTED PATIENT -->
+
+        <div class="section">
+
+            <h2>
+                Reminders for
+                <span class="patient-name">
+                    {{ selected_patient.name }}
+                </span>
+            </h2>
+
+
+            {% if reminders %}
+
+
+                {% for reminder in reminders %}
+
+                    <div class="reminder-card">
+
+                        <h3>
+                            {{ reminder.title }}
+                        </h3>
+
+                        <p class="reminder-info">
+
+                            <strong>Type:</strong>
+
+                            <span class="type">
+                                {{ reminder.get_reminder_type_display }}
+                            </span>
+
+                        </p>
+
+
+                        {% if reminder.description %}
+
+                            <p class="reminder-info">
+
+                                <strong>Description:</strong>
+
+                                {{ reminder.description }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        <p class="reminder-info">
+
+                            <strong>Time:</strong>
+
+                            {{ reminder.reminder_time|time:"h:i A" }}
+
+                        </p>
+
+
+                        {% if reminder.reminder_date %}
+
+                            <p class="reminder-info">
+
+                                <strong>Date:</strong>
+
+                                {{ reminder.reminder_date|date:"d M Y" }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        <p class="reminder-info">
+
+                            <strong>Status:</strong>
+
+                            {% if reminder.is_completed %}
+
+                                <span class="completed">
+                                    ✓ Completed
+                                </span>
+
+                            {% else %}
+
+                                <span class="pending">
+                                    ⏳ Pending
+                                </span>
+
+                            {% endif %}
+
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <p class="no-data">
+
+                    No reminders found for this patient.
+
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="section">
+
+            <h2>Welcome</h2>
+
+            <p>
+                Select a patient above to view their
+                daily reminders.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+        <a href="/" class="back-button">
+            Back to Home
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>

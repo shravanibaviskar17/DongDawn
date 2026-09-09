@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Daily Routine Recall -  DongDawn</title>
+
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f7fa;
+
+            margin: 0;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+
+        .container {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.1);
+
+        }
+
+
+        h1 {
+
+            font-size: 34px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .instruction {
+
+            font-size: 22px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .difficulty {
+
+            margin: 20px auto;
+
+            padding: 12px;
+
+            background: #eef3f8;
+
+            border-radius: 10px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        #sequence {
+
+            font-size: 25px;
+
+            line-height: 1.8;
+
+            margin: 20px;
+
+            padding: 20px;
+
+            background: #eef3f8;
+
+            border-radius: 15px;
+
+        }
+
+
+        .activity-button {
+
+            display: block;
+
+            width: 90%;
+
+            margin: 12px auto;
+
+            padding: 18px;
+
+            font-size: 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background: #e3f2fd;
+
+        }
+
+
+        .activity-button:hover {
+
+            background: #bbdefb;
+
+        }
+
+
+        .activity-button:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.5;
+
+        }
+
+
+        .start-button {
+
+            padding: 18px 35px;
+
+            font-size: 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background: #1976d2;
+
+            color: white;
+
+        }
+
+
+        .start-button:hover {
+
+            background: #0d47a1;
+
+        }
+
+
+        .home-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 25px;
+
+            background: #555;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+        }
+
+
+        #result {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f1f8e9;
+
+            border-radius: 15px;
+
+        }
+
+
+        .hidden {
+
+            display: none;
+
+        }
+
+
+        .loading {
+
+            font-size: 20px;
+
+            margin: 20px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        🧠 Daily Routine Recall
+    </h1>
+
+
+    <p class="instruction">
+
+        Remember the daily activities
+        in the correct order.
+
+    </p>
+
+
+    <div
+        id="difficulty"
+        class="difficulty"
+    >
+
+        Difficulty:
+        <span id="difficultyText">
+            Easy
+        </span>
+
+    </div>
+
+
+    <!-- START SCREEN -->
+
+    <div id="instructions">
+
+        <p class="instruction">
+
+            You will see a sequence
+            of daily activities.
+
+        </p>
+
+        <p class="instruction">
+
+            Remember the order carefully.
+
+        </p>
+
+
+        <button
+            class="start-button"
+            onclick="startGame()"
+        >
+
+            ▶ Start Game
+
+        </button>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading hidden"
+    >
+
+        🤖 Preparing your activity...
+
+    </div>
+
+
+    <!-- ROUTINE SEQUENCE -->
+
+    <div
+        id="sequence"
+        class="hidden"
+    ></div>
+
+
+    <!-- QUESTION -->
+
+    <div
+        id="question"
+        class="hidden"
+    >
+
+        <p class="instruction">
+
+            Select the activities
+            in the correct order.
+
+        </p>
+
+
+        <div id="options"></div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+        id="result"
+        class="hidden"
+    ></div>
+
+
+    <a
+        href="/"
+        class="home-button"
+    >
+
+        🏠 Back to Home
+
+    </a>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   GAME VARIABLES
+========================================== */
+
+
+let correctOrder = [];
+
+let selectedOrder = [];
+
+let startTime = 0;
+
+let attempts = 0;
+
+let currentDifficulty = "easy";
+
+
+/* ==========================================
+   ROUTINES
+========================================== */
+
+
+const easyRoutine = [
+
+    "🌅 Wake Up",
+
+    "🪥 Brush Teeth",
+
+    "🍳 Breakfast"
+
+];
+
+
+const mediumRoutine = [
+
+    "🌅 Wake Up",
+
+    "🪥 Brush Teeth",
+
+    "🍳 Breakfast",
+
+    "💊 Take Medicine"
+
+];
+
+
+const hardRoutine = [
+
+    "🌅 Wake Up",
+
+    "🪥 Brush Teeth",
+
+    "🍳 Breakfast",
+
+    "💊 Take Medicine",
+
+    "🚶 Morning Walk",
+
+    "📖 Read Newspaper"
+
+];
+
+
+/* ==========================================
+   GET ROUTINE BASED ON DIFFICULTY
+========================================== */
+
+
+function getRoutineForDifficulty() {
+
+
+    if (
+        currentDifficulty === "medium"
+    ) {
+
+        return [...mediumRoutine];
+
+    }
+
+
+    if (
+        currentDifficulty === "hard"
+    ) {
+
+        return [...hardRoutine];
+
+    }
+
+
+    return [...easyRoutine];
+
+}
+
+
+/* ==========================================
+   UPDATE DIFFICULTY DISPLAY
+========================================== */
+
+
+function updateDifficultyDisplay() {
+
+
+    const difficultyText =
+        document.getElementById(
+            "difficultyText"
+        );
+
+
+    difficultyText.innerText =
+        currentDifficulty
+            .charAt(0)
+            .toUpperCase()
+        +
+        currentDifficulty.slice(1);
+
+}
+
+
+/* ==========================================
+   GET AI DIFFICULTY
+========================================== */
+
+
+async function getDifficulty() {
+
+
+    const patientId =
+        "{{ patient_id }}";
+
+
+    if (!patientId) {
+
+        currentDifficulty = "easy";
+
+        updateDifficultyDisplay();
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const response = await fetch(
+
+            "/ai/next-difficulty/?patient_id="
+            + patientId
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+
+            currentDifficulty =
+                data.difficulty;
+
+
+        }
+
+        else {
+
+
+            currentDifficulty =
+                "easy";
+
+
+        }
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Difficulty request failed:",
+            error
+        );
+
+
+        currentDifficulty =
+            "easy";
+
+    }
+
+
+    updateDifficultyDisplay();
+
+}
+
+
+/* ==========================================
+   START GAME
+========================================== */
+
+
+async function startGame() {
+
+
+    document
+        .getElementById("instructions")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("result")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("loading")
+        .classList.remove("hidden");
+
+
+    selectedOrder = [];
+
+    attempts = 0;
+
+
+    /*
+       Get patient's current
+       AI difficulty
+    */
+
+
+    await getDifficulty();
+
+
+    /*
+       Get routine according
+       to difficulty
+    */
+
+
+    correctOrder =
+        getRoutineForDifficulty();
+
+
+    const sequence =
+        document.getElementById(
+            "sequence"
+        );
+
+
+    sequence.innerHTML =
+        correctOrder.join("<br>");
+
+
+    document
+        .getElementById("loading")
+        .classList.add("hidden");
+
+
+    sequence.classList.remove(
+        "hidden"
+    );
+
+
+    startTime =
+        Date.now();
+
+
+    /*
+       Display time according
+       to difficulty
+    */
+
+
+    let displayTime = 5000;
+
+
+    if (
+        currentDifficulty === "easy"
+    ) {
+
+        displayTime = 6000;
+
+    }
+
+
+    else if (
+        currentDifficulty === "medium"
+    ) {
+
+        displayTime = 5000;
+
+    }
+
+
+    else if (
+        currentDifficulty === "hard"
+    ) {
+
+        displayTime = 3500;
+
+    }
+
+
+    setTimeout(() => {
+
+
+        sequence.classList.add(
+            "hidden"
+        );
+
+
+        showOptions();
+
+
+    }, displayTime);
+
+}
+
+
+/* ==========================================
+   SHOW OPTIONS
+========================================== */
+
+
+function showOptions() {
+
+
+    const question =
+        document.getElementById(
+            "question"
+        );
+
+
+    const options =
+        document.getElementById(
+            "options"
+        );
+
+
+    options.innerHTML = "";
+
+
+    const shuffled =
+        [...correctOrder].sort(
+            () => Math.random() - 0.5
+        );
+
+
+    shuffled.forEach(
+        activity => {
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "activity-button";
+
+
+            button.innerText =
+                activity;
+
+
+            button.onclick =
+                function() {
+
+
+                    selectActivity(
+                        activity,
+                        button
+                    );
+
+
+                };
+
+
+            options.appendChild(
+                button
+            );
+
+
+        }
+    );
+
+
+    question.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* ==========================================
+   SELECT ACTIVITY
+========================================== */
+
+
+function selectActivity(
+    activity,
+    button
+) {
+
+
+    selectedOrder.push(
+        activity
+    );
+
+
+    attempts++;
+
+
+    button.disabled = true;
+
+
+    /*
+       When all activities
+       are selected
+    */
+
+
+    if (
+        selectedOrder.length ===
+        correctOrder.length
+    ) {
+
+
+        finishGame();
+
+    }
+
+}
+
+
+/* ==========================================
+   FINISH GAME
+========================================== */
+
+
+function finishGame() {
+
+
+    const completionTime =
+        (
+            Date.now() - startTime
+        ) / 1000;
+
+
+    let correct = 0;
+
+
+    /*
+       Compare selected order
+       with correct order
+    */
+
+
+    for (
+        let i = 0;
+        i < correctOrder.length;
+        i++
+    ) {
+
+
+        if (
+            selectedOrder[i] ===
+            correctOrder[i]
+        ) {
+
+
+            correct++;
+
+        }
+
+    }
+
+
+    const accuracy =
+        (
+            correct /
+            correctOrder.length
+        ) * 100;
+
+
+    const score =
+        Math.round(accuracy);
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    result.innerHTML =
+
+        "🎉 Game Completed!<br><br>" +
+
+        "Difficulty: " +
+        currentDifficulty +
+        "<br>" +
+
+        "Correct Positions: " +
+        correct +
+        " / " +
+        correctOrder.length +
+        "<br>" +
+
+        "Score: " +
+        score +
+        "<br>" +
+
+        "Accuracy: " +
+        accuracy.toFixed(2) +
+        "%<br>" +
+
+        "Time: " +
+        completionTime.toFixed(2) +
+        " seconds";
+
+
+    result.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById("question")
+        .classList.add("hidden");
+
+
+    /*
+       Save result
+    */
+
+
+    saveRoutineResult(
+
+        score,
+
+        attempts,
+
+        accuracy,
+
+        completionTime
+
+    );
+
+}
+
+
+/* ==========================================
+   SAVE RESULT
+========================================== */
+
+
+function saveRoutineResult(
+
+    score,
+
+    attempts,
+
+    accuracy,
+
+    completionTime
+
+) {
+
+
+    fetch(
+        "/games/save-result/",
+        {
+
+            method: "POST",
+
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "X-CSRFToken":
+                    getCookie(
+                        "csrftoken"
+                    )
+
+            },
+
+
+            body:
+                JSON.stringify({
+
+                    game_name:
+                        "Daily Routine Recall",
+
+
+                    score:
+                        score,
+
+
+                    attempts:
+                        attempts,
+
+
+                    accuracy:
+                        accuracy,
+
+
+                    difficulty:
+                        currentDifficulty,
+
+
+                    completion_time:
+                        completionTime,
+
+
+                    patient_id:
+                        "{{ patient_id }}"
+
+                })
+
+        }
+    )
+
+
+    .then(
+        response =>
+            response.json()
+    )
+
+
+    .then(
+        data => {
+
+
+            if (data.success) {
+
+
+                console.log(
+                    "Routine result saved:",
+                    data
+                );
+
+
+            }
+
+
+            else {
+
+
+                console.error(
+                    "Save error:",
+                    data.error
+                );
+
+
+            }
+
+        }
+    )
+
+
+    .catch(
+        error => {
+
+
+            console.error(
+                "Request failed:",
+                error
+            );
+
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CSRF COOKIE
+========================================== */
+
+
+function getCookie(name) {
+
+
+    let cookieValue = null;
+
+
+    if (
+        document.cookie &&
+        document.cookie !== ""
+    ) {
+
+
+        const cookies =
+            document.cookie.split(
+                ";"
+            );
+
+
+        for (
+            let cookie of cookies
+        ) {
+
+
+            cookie =
+                cookie.trim();
+
+
+            if (
+                cookie.startsWith(
+                    name + "="
+                )
+            ) {
+
+
+                cookieValue =
+                    decodeURIComponent(
+
+                        cookie.substring(
+                            name.length + 1
+                        )
+
+                    );
+
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    return cookieValue;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

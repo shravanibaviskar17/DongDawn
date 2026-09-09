@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pattern Recognition</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            text-align: center;
+            color: #222;
+        }
+
+        .header {
+            background: #315c8c;
+            color: white;
+            padding: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .info p {
+            font-size: 20px;
+        }
+
+        .pattern-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .pattern {
+            font-size: 50px;
+            margin: 25px;
+            letter-spacing: 15px;
+            min-height: 70px;
+        }
+
+        .question {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .option-button {
+            font-size: 28px;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            background: #e8eef5;
+            cursor: pointer;
+        }
+
+        .option-button:hover {
+            background: #d2dfec;
+        }
+
+        .option-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .score {
+            font-size: 21px;
+            margin-top: 20px;
+        }
+
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px;
+            min-height: 30px;
+        }
+
+        .start-button,
+        .home-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .start-button {
+            background: #315c8c;
+            color: white;
+        }
+
+        .home-button {
+            background: #777;
+            color: white;
+        }
+
+        .result-box {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .result-box h2 {
+            font-size: 30px;
+        }
+
+        .result-box p {
+            font-size: 22px;
+        }
+
+        @media (max-width: 600px) {
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            .pattern {
+                font-size: 40px;
+                letter-spacing: 8px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="header">
+
+        <h1>🧠 Pattern Recognition</h1>
+
+        <p>Find what comes next in the pattern</p>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="info">
+
+            <p>
+                Difficulty:
+                <strong id="difficulty">
+                    Loading...
+                </strong>
+            </p>
+
+            <p>
+                Question:
+                <strong id="questionNumber">
+                    0
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div class="pattern-box">
+
+            <div
+                id="pattern"
+                class="pattern">
+            </div>
+
+
+            <div
+                id="question"
+                class="question">
+                Press Start Game
+            </div>
+
+
+            <div
+                id="options"
+                class="options">
+            </div>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <div class="score">
+
+                Score:
+                <strong id="score">
+                    0
+                </strong>
+
+                &nbsp;&nbsp;
+
+                Attempts:
+                <strong id="attempts">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="start-button"
+            onclick="startGame()">
+
+            ▶ Start Game
+
+        </button>
+
+
+        <a
+            href="/patients/"
+            class="home-button">
+
+            🏠 Back to Patients
+
+        </a>
+
+
+        <div
+            id="resultBox"
+            class="result-box">
+
+            <h2>🎉 Game Completed!</h2>
+
+            <p>
+                Your Score:
+                <strong id="finalScore"></strong>
+            </p>
+
+            <p>
+                Accuracy:
+                <strong id="finalAccuracy"></strong>%
+            </p>
+
+            <p>
+                Difficulty:
+                <strong id="finalDifficulty"></strong>
+            </p>
+
+            <p>
+                Attempts:
+                <strong id="finalAttempts"></strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+    const patientId = "{{ patient_id }}";
+
+
+    let currentDifficulty = "easy";
+
+    let patterns = [];
+
+    let currentQuestion = 0;
+
+    let score = 0;
+
+    let attempts = 0;
+
+    let correctAnswers = 0;
+
+    let startTime = 0;
+
+
+    /*
+        EASY PATTERNS
+    */
+
+    const easyPatterns = [
+
+        {
+            sequence: ["🔴", "🔵", "🔴", "🔵", "?"],
+            answer: "🔴",
+            options: ["🔴", "🟢", "🟡", "🔵"]
+        },
+
+        {
+            sequence: ["⭐", "🌙", "⭐", "🌙", "?"],
+            answer: "⭐",
+            options: ["⭐", "☀️", "🌙", "❤️"]
+        },
+
+        {
+            sequence: ["🍎", "🍌", "🍎", "🍌", "?"],
+            answer: "🍎",
+            options: ["🍌", "🍎", "🍊", "🍇"]
+        }
+
+    ];
+
+
+    /*
+        MEDIUM PATTERNS
+    */
+
+    const mediumPatterns = [
+
+        {
+            sequence: ["🔴", "🔵", "🟢", "🔴", "🔵", "?"],
+            answer: "🟢",
+            options: ["🟡", "🔴", "🟢", "🔵"]
+        },
+
+        {
+            sequence: ["⭐", "🌙", "☀️", "⭐", "🌙", "?"],
+            answer: "☀️",
+            options: ["🌙", "⭐", "❤️", "☀️"]
+        },
+
+        {
+            sequence: ["🍎", "🍌", "🍊", "🍎", "🍌", "?"],
+            answer: "🍊",
+            options: ["🍎", "🍇", "🍊", "🍌"]
+        },
+
+        {
+            sequence: ["1️⃣", "2️⃣", "3️⃣", "1️⃣", "2️⃣", "?"],
+            answer: "3️⃣",
+            options: ["1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+        }
+
+    ];
+
+
+    /*
+        HARD PATTERNS
+    */
+
+    const hardPatterns = [
+
+        {
+            sequence: ["🔴", "🔵", "🟢", "🟡", "🔴", "🔵", "?"],
+            answer: "🟢",
+            options: ["🟢", "🔴", "🟡", "🔵"]
+        },
+
+        {
+            sequence: ["⭐", "🌙", "☀️", "❤️", "⭐", "🌙", "?"],
+            answer: "☀️",
+            options: ["❤️", "⭐", "☀️", "🌙"]
+        },
+
+        {
+            sequence: ["🍎", "🍌", "🍊", "🍇", "🍎", "🍌", "?"],
+            answer: "🍊",
+            options: ["🍇", "🍎", "🍊", "🍌"]
+        },
+
+        {
+            sequence: ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "1️⃣", "2️⃣", "?"],
+            answer: "3️⃣",
+            options: ["4️⃣", "1️⃣", "3️⃣", "2️⃣"]
+        },
+
+        {
+            sequence: ["🌅", "🪥", "🍳", "💊", "🌅", "🪥", "?"],
+            answer: "🍳",
+            options: ["💊", "🍳", "🌅", "🪥"]
+        }
+
+    ];
+
+
+    /*
+        GET DIFFICULTY FROM AI ENGINE
+    */
+
+    async function getDifficulty() {
+
+        if (!patientId) {
+
+            currentDifficulty = "easy";
+
+            document.getElementById(
+                "difficulty"
+            ).innerText = "Easy";
+
+            return;
+
+        }
+
+
+        try {
+
+            const response = await fetch(
+                `/ai/next-difficulty/?patient_id=${patientId}`
+            );
+
+
+            const data = await response.json();
+
+
+            if (data.success) {
+
+                currentDifficulty =
+                    data.difficulty;
+
+            }
+
+            else {
+
+                currentDifficulty = "easy";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Difficulty error:",
+                error
+            );
+
+            currentDifficulty = "easy";
+
+        }
+
+
+        document.getElementById(
+            "difficulty"
+        ).innerText =
+            currentDifficulty
+                .charAt(0)
+                .toUpperCase()
+            +
+            currentDifficulty.slice(1);
+
+    }
+
+
+    /*
+        SELECT PATTERNS
+    */
+
+    function getPatternsForDifficulty() {
+
+        if (
+            currentDifficulty === "hard"
+        ) {
+
+            return hardPatterns;
+
+        }
+
+
+        if (
+            currentDifficulty === "medium"
+        ) {
+
+            return mediumPatterns;
+
+        }
+
+
+        return easyPatterns;
+
+    }
+
+
+    /*
+        START GAME
+    */
+
+    async function startGame() {
+
+        await getDifficulty();
+
+
+        patterns =
+            getPatternsForDifficulty();
+
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        attempts = 0;
+
+        correctAnswers = 0;
+
+        startTime = Date.now();
+
+
+        document.getElementById(
+            "score"
+        ).innerText = score;
+
+
+        document.getElementById(
+            "attempts"
+        ).innerText = attempts;
+
+
+        document.getElementById(
+            "resultBox"
+        ).style.display = "none";
+
+
+        showQuestion();
+
+    }
+
+
+    /*
+        SHOW QUESTION
+    */
+
+    function showQuestion() {
+
+        if (
+            currentQuestion >= patterns.length
+        ) {
+
+            endGame();
+
+            return;
+
+        }
+
+
+        const pattern =
+            patterns[currentQuestion];
+
+
+        document.getElementById(
+            "questionNumber"
+        ).innerText =
+            `${currentQuestion + 1} / ${patterns.length}`;
+
+
+        document.getElementById(
+            "pattern"
+        ).innerText =
+            pattern.sequence.join(" ");
+
+
+        document.getElementById(
+            "question"
+        ).innerText =
+            "What comes next?";
+
+
+        const options =
+            document.getElementById(
+                "options"
+            );
+
+
+        options.innerHTML = "";
+
+
+        pattern.options.forEach(
+            option => {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "option-button";
+
+
+                button.innerText =
+                    option;
+
+
+                button.onclick =
+                    function() {
+
+                        checkAnswer(
+                            option,
+                            pattern.answer
+                        );
+
+                    };
+
+
+                options.appendChild(
+                    button
+                );
+
+            }
+        );
+
+
+        document.getElementById(
+            "message"
+        ).innerText = "";
+
+    }
+
+
+    /*
+        CHECK ANSWER
+    */
+
+    function checkAnswer(
+        selected,
+        correct
+    ) {
+
+        attempts++;
+
+
+        const buttons =
+            document.querySelectorAll(
+                ".option-button"
+            );
+
+
+        buttons.forEach(
+            button => {
+
+                button.disabled = true;
+
+            }
+        );
+
+
+        if (
+            selected === correct
+        ) {
+
+            score += 10;
+
+            correctAnswers++;
+
+
+            document.getElementById(
+                "message"
+            ).innerText =
+                "✅ Correct! Well done!";
+
+        }
+
+        else {
+
+            document.getElementById(
+                "message"
+            ).innerText =
+                "❌ Not quite. Keep trying!";
+
+        }
+
+
+        document.getElementById(
+            "score"
+        ).innerText = score;
+
+
+        document.getElementById(
+            "attempts"
+        ).innerText = attempts;
+
+
+        setTimeout(
+            function() {
+
+                currentQuestion++;
+
+                showQuestion();
+
+            },
+            1000
+        );
+
+    }
+
+
+    /*
+        END GAME
+    */
+
+    function endGame() {
+
+        const completionTime =
+            (Date.now() - startTime) / 1000;
+
+
+        let accuracy = 0;
+
+
+        if (attempts > 0) {
+
+            accuracy =
+                (correctAnswers / attempts) * 100;
+
+        }
+
+
+        accuracy =
+            Math.round(accuracy * 100) / 100;
+
+
+        document.getElementById(
+            "finalScore"
+        ).innerText = score;
+
+
+        document.getElementById(
+            "finalAccuracy"
+        ).innerText = accuracy;
+
+
+        document.getElementById(
+            "finalDifficulty"
+        ).innerText =
+            currentDifficulty
+                .charAt(0)
+                .toUpperCase()
+            +
+            currentDifficulty.slice(1);
+
+
+        document.getElementById(
+            "finalAttempts"
+        ).innerText = attempts;
+
+
+        document.getElementById(
+            "resultBox"
+        ).style.display = "block";
+
+
+        saveGameResult(
+            score,
+            attempts,
+            accuracy,
+            completionTime
+        );
+
+    }
+
+
+    /*
+        SAVE RESULT TO DATABASE
+    */
+
+    function saveGameResult(
+        score,
+        attempts,
+        accuracy,
+        completionTime
+    ) {
+
+        fetch(
+            "/games/save-result/",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "X-CSRFToken":
+                        getCookie(
+                            "csrftoken"
+                        )
+
+                },
+
+                body: JSON.stringify({
+
+                    game_name:
+                        "Pattern Recognition",
+
+                    score:
+                        score,
+
+                    attempts:
+                        attempts,
+
+                    accuracy:
+                        accuracy,
+
+                    difficulty:
+                        currentDifficulty,
+
+                    completion_time:
+                        completionTime,
+
+                    patient_id:
+                        patientId
+
+                })
+
+            }
+        )
+
+        .then(
+            response =>
+                response.json()
+        )
+
+        .then(
+            data => {
+
+                if (data.success) {
+
+                    console.log(
+                        "Pattern result saved:",
+                        data
+                    );
+
+                }
+
+                else {
+
+                    console.error(
+                        "Save error:",
+                        data.error
+                    );
+
+                }
+
+            }
+        )
+
+        .catch(
+            error => {
+
+                console.error(
+                    "Request failed:",
+                    error
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+        CSRF COOKIE
+    */
+
+    function getCookie(name) {
+
+        let cookieValue = null;
+
+
+        if (
+            document.cookie &&
+            document.cookie !== ""
+        ) {
+
+            const cookies =
+                document.cookie.split(";");
+
+
+            for (
+                let cookie of cookies
+            ) {
+
+                cookie =
+                    cookie.trim();
+
+
+                if (
+                    cookie.startsWith(
+                        name + "="
+                    )
+                ) {
+
+                    cookieValue =
+                        decodeURIComponent(
+                            cookie.substring(
+                                name.length + 1
+                            )
+                        );
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+
+        return cookieValue;
+
+    }
+
+</script>
+
+</body>
+
+</html>

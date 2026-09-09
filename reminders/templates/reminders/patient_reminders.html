@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title> DongDawn - My Reminders</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .header p {
+            font-size: 22px;
+            margin-bottom: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .patient-name {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        .reminder-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        }
+
+        .reminder-title {
+            font-size: 28px;
+            margin: 0 0 15px 0;
+        }
+
+        .reminder-time {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .reminder-date {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .reminder-description {
+            font-size: 20px;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .reminder-type {
+            font-size: 19px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .completed {
+            color: green;
+        }
+
+        .pending {
+            color: #d35400;
+        }
+
+        .no-data {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 22px;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            padding: 16px 28px;
+            background: #7f8c8d;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .header p {
+                font-size: 19px;
+            }
+
+            .reminder-title {
+                font-size: 24px;
+            }
+
+            .reminder-time {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="header">
+
+        <h1> DongDawn</h1>
+
+        <p>My Daily Reminders</p>
+
+    </div>
+
+
+    <div class="container">
+
+
+        {% if patient %}
+
+            <div class="patient-name">
+
+                Hello, {{ patient.name }} 👋
+
+            </div>
+
+
+            {% if reminders %}
+
+
+                {% for reminder in reminders %}
+
+                    <div class="reminder-card">
+
+
+                        <h2 class="reminder-title">
+
+                            {{ reminder.title }}
+
+                        </h2>
+
+
+                        <div class="reminder-type">
+
+                            {{ reminder.get_reminder_type_display }}
+
+                        </div>
+
+
+                        <div class="reminder-time">
+
+                            🕐
+                            {{ reminder.reminder_time|time:"h:i A" }}
+
+                        </div>
+
+
+                        {% if reminder.reminder_date %}
+
+                            <div class="reminder-date">
+
+                                📅
+                                {{ reminder.reminder_date|date:"d M Y" }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% if reminder.description %}
+
+                            <div class="reminder-description">
+
+                                {{ reminder.description }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="status">
+
+                            {% if reminder.is_completed %}
+
+                                <span class="completed">
+
+                                    ✓ Completed
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="pending">
+
+                                    ⏳ Reminder Pending
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <div class="no-data">
+
+                    😊 You have no reminders today.
+
+                </div>
+
+            {% endif %}
+
+
+        {% else %}
+
+            <div class="no-data">
+
+                Patient not found.
+
+            </div>
+
+        {% endif %}
+
+
+        <a
+            href="/"
+            class="back-button"
+        >
+            Back to Home
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>

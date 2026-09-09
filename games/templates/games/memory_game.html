@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memory Game -  DongDawn</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            text-align: center;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 34px;
+            color: #4f46e5;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 15px;
+            justify-content: center;
+            margin: 30px auto;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card.flipped {
+            background: white;
+            color: #333;
+            border: 2px solid #4f46e5;
+        }
+
+        button {
+            padding: 14px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            cursor: pointer;
+        }
+
+        #score {
+            font-size: 22px;
+            margin: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🧠  DongDawn Memory Game</h1>
+
+    <p>Find all matching pairs!</p>
+
+    <div id="score">Matches: 0</div>
+
+    <div class="game-board" id="gameBoard"></div>
+
+    <button onclick="startGame()">Restart Game</button>
+
+    <script>
+
+let symbols = [];
+let currentDifficulty = "easy";
+
+        let cards = [];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matches = 0;
+        let attempts = 0;
+        let startTime = 0;
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+function getDifficulty() 
+{
+
+    const patientId = "{{ patient_id }}";
+
+
+    if (!patientId) {
+
+        console.log(
+            "No patient ID found. Starting with easy difficulty."
+        );
+
+        currentDifficulty = "easy";
+
+        startGame();
+
+        return;
+    }
+
+
+    fetch(
+        "/ai/next-difficulty/?patient_id="
+        + patientId
+    )
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+
+            currentDifficulty =
+                data.difficulty;
+
+            console.log(
+                "AI selected difficulty:",
+                currentDifficulty
+            );
+
+            startGame();
+
+        }
+
+        else {
+
+            console.error(
+                "AI Error:",
+                data.error
+            );
+
+            currentDifficulty = "easy";
+
+            startGame();
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Request failed:",
+            error
+        );
+
+        currentDifficulty = "easy";
+
+        startGame();
+
+    });
+}
+
+        function startGame() {
+if (currentDifficulty === "easy") {
+
+    symbols = [
+        "🍎", "🍎",
+        "🌸", "🌸",
+        "🏠", "🏠",
+        "🐦", "🐦"
+    ];
+
+}
+
+else if (currentDifficulty === "medium") {
+
+    symbols = [
+        "🍎", "🍎",
+        "🌸", "🌸",
+        "🏠", "🏠",
+        "🐦", "🐦",
+        "🌳", "🌳",
+        "⭐", "⭐"
+    ];
+
+}
+
+else {
+
+    symbols = [
+        "🍎", "🍎",
+        "🌸", "🌸",
+        "🏠", "🏠",
+        "🐦", "🐦",
+        "🌳", "🌳",
+        "⭐", "⭐",
+        "🚗", "🚗",
+        "🌞", "🌞"
+    ];
+
+}
+
+            const gameBoard = document.getElementById("gameBoard");
+
+            gameBoard.innerHTML = "";
+
+            cards = [];
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+            matches = 0;
+            attempts = 0;
+            startTime = Date.now();
+
+            document.getElementById("score").innerText = "Matches: 0";
+
+            const shuffledSymbols = shuffle([...symbols]);
+
+            shuffledSymbols.forEach((symbol, index) => {
+
+                const card = document.createElement("div");
+
+                card.classList.add("card");
+
+                card.dataset.symbol = symbol;
+
+                card.innerText = "?";
+
+                card.addEventListener("click", flipCard);
+
+                gameBoard.appendChild(card);
+
+                cards.push(card);
+            });
+        }
+
+        function flipCard() {
+
+            if (lockBoard) return;
+
+            if (this === firstCard) return;
+
+            this.classList.add("flipped");
+
+            this.innerText = this.dataset.symbol;
+
+            if (!firstCard) {
+
+                firstCard = this;
+
+                return;
+            }
+
+            secondCard = this;
+
+            checkMatch();
+        }
+
+        function checkMatch() {
+            attempts++;
+
+            if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+
+                matches++;
+
+                document.getElementById("score").innerText =
+                    "Matches: " + matches;
+
+                firstCard = null;
+                secondCard = null;
+
+               if (matches === symbols.length / 2) {
+
+    const completionTime =
+        Math.round((Date.now() - startTime) / 1000);
+
+    const accuracy =
+        attempts > 0
+        ? ((matches / attempts) * 100).toFixed(2)
+        : 0;
+
+    saveGameResult(
+        matches,
+        attempts,
+        accuracy,
+        completionTime
+    );
+
+    setTimeout(() => {
+        alert(
+            "🎉 Congratulations!\n\n" +
+            "Score: " + matches + "\n" +
+            "Attempts: " + attempts + "\n" +
+            "Accuracy: " + accuracy + "%\n" +
+            "Time: " + completionTime + " seconds"
+        );
+    }, 300);
+}
+
+            } else {
+
+                lockBoard = true;
+
+                setTimeout(() => {
+
+                    firstCard.classList.remove("flipped");
+                    secondCard.classList.remove("flipped");
+
+                    firstCard.innerText = "?";
+                    secondCard.innerText = "?";
+
+                    firstCard = null;
+                    secondCard = null;
+
+                    lockBoard = false;
+
+                }, 800);
+            }
+        }
+
+        getDifficulty();
+function saveGameResult(score, attempts, accuracy, completionTime) {
+
+    fetch("/games/save-result/", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+
+    body: JSON.stringify({
+    game_name: "Memory Matching",
+    score: score,
+    attempts: attempts,
+    accuracy: accuracy,
+    difficulty: currentDifficulty,
+    completion_time: completionTime,
+    patient_id: "{{ patient_id }}"
+})
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.success) {
+            console.log("Game result saved:", data);
+        } else {
+            console.error("Error:", data.error);
+        }
+
+    })
+
+    .catch(error => {
+        console.error("Request failed:", error);
+    });
+}
+
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title> DongDawn - Patient Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            color: #222;
+        }
+
+        .header {
+            background: #315c8c;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        .header p {
+            font-size: 20px;
+            margin: 10px 0 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .welcome h2 {
+            font-size: 30px;
+            margin-top: 0;
+        }
+
+        .welcome p {
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 30px 0 15px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .game-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .game-card h3 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        .game-card p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .game-button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #315c8c;
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        .game-button:hover {
+            opacity: 0.9;
+        }
+
+        .reminders {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .reminder-card {
+            border: 1px solid #ddd;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .reminder-card h3 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .reminder-card p {
+            font-size: 18px;
+            margin: 6px 0;
+        }
+
+        .no-reminders {
+            font-size: 20px;
+            padding: 15px;
+        }
+
+        .progress {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .result-row {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-row strong {
+            font-size: 20px;
+        }
+
+        .result-row span {
+            font-size: 18px;
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 35px 0 15px;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: #777;
+            color: white;
+            text-decoration: none;
+            padding: 15px 22px;
+            margin: 8px;
+            border-radius: 12px;
+            font-size: 19px;
+        }
+
+        .reminder-button {
+            background: #315c8c;
+        }
+
+        .caregiver-button {
+            background: #555;
+        }
+
+        @media (max-width: 700px) {
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .welcome h2 {
+                font-size: 25px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>🧠  DongDawn</h1>
+
+    <p>Your Personal Memory & Wellness Assistant</p>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h2>
+            👋 Hello, {{ patient.name }}!
+        </h2>
+
+        <p>
+            Welcome to your  DongDawn dashboard.
+        </p>
+
+        <p>
+            Take your time, enjoy the activities,
+            and complete your daily reminders.
+        </p>
+
+    </div>
+
+
+
+    <!-- GAMES -->
+
+    <h2 class="section-title">
+        🧠 Cognitive Games
+    </h2>
+
+
+    <div class="games-grid">
+
+
+        <div class="game-card">
+
+            <h3>🧠 Memory Matching</h3>
+
+            <p>
+                Match the same objects and
+                exercise your memory.
+            </p>
+
+            <a
+                href="/games/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Memory Game
+
+            </a>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <h3>📅 Daily Routine Recall</h3>
+
+            <p>
+                Remember the correct order
+                of your daily activities.
+            </p>
+
+            <a
+                href="/games/routine/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Routine Game
+
+            </a>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <h3>👁️ Object Recognition</h3>
+
+            <p>
+                Look at familiar objects and
+                identify them correctly.
+            </p>
+
+            <a
+                href="/games/object/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Object Game
+
+            </a>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <h3>🧩 Pattern Recognition</h3>
+
+            <p>
+                Find the missing part of
+                simple patterns.
+            </p>
+
+            <a
+                href="/games/pattern/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Pattern Game
+
+            </a>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <h3>🎯 Attention & Concentration</h3>
+
+            <p>
+                Focus carefully and find
+                the matching object.
+            </p>
+
+            <a
+                href="/games/attention/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Attention Game
+
+            </a>
+
+        </div>
+
+
+
+        <div class="game-card">
+
+            <h3>❤️ Emotional Recognition</h3>
+
+            <p>
+                Look at different expressions
+                and identify the emotion.
+            </p>
+
+            <a
+                href="/games/emotion/?patient_id={{ patient.id }}"
+                class="game-button">
+
+                Play Emotion Game
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- REMINDERS -->
+
+    <h2 class="section-title">
+        ⏰ Today's Reminders
+    </h2>
+
+
+    <div class="reminders">
+
+
+        {% if reminders %}
+
+            {% for reminder in reminders %}
+
+                <div class="reminder-card">
+
+                    <h3>
+                        {{ reminder.title }}
+                    </h3>
+
+                    <p>
+                        🕐
+                        {{ reminder.reminder_time }}
+                    </p>
+
+                    <p>
+                        📌
+                        {{ reminder.get_reminder_type_display }}
+                    </p>
+
+                    {% if reminder.description %}
+
+                        <p>
+                            {{ reminder.description }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-reminders">
+
+                ✅ You have no pending reminders.
+
+            </div>
+
+        {% endif %}
+
+
+        <a
+            href="/reminders/patient/{{ patient.id }}/"
+            class="game-button reminder-button">
+
+            ⏰ View All My Reminders
+
+        </a>
+
+    </div>
+
+
+
+    <!-- RECENT PROGRESS -->
+
+    <h2 class="section-title">
+        📊 My Recent Progress
+    </h2>
+
+
+    <div class="progress">
+
+
+        {% if game_results %}
+
+
+            {% for result in game_results %}
+
+                <div class="result-row">
+
+                    <strong>
+                        {{ result.game_name }}
+                    </strong>
+
+                    <br>
+
+                    <span>
+                        Score: {{ result.score }}
+                    </span>
+
+                    &nbsp; | &nbsp;
+
+                    <span>
+                        Accuracy: {{ result.accuracy }}%
+                    </span>
+
+                    &nbsp; | &nbsp;
+
+                    <span>
+                        Difficulty: {{ result.difficulty|title }}
+                    </span>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <p>
+                🌱 You haven't played any games yet.
+            </p>
+
+            <p>
+                Start a game to begin tracking
+                your progress!
+            </p>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+
+        <a
+            href="/reminders/patient/{{ patient.id }}/"
+            class="nav-button reminder-button">
+
+            ⏰ My Reminders
+
+        </a>
+
+
+        <a
+            href="/caregivers/?patient_id={{ patient.id }}"
+            class="nav-button caregiver-button">
+
+            📊 Caregiver Dashboard
+
+        </a>
+
+
+        <a
+            href="/patients/"
+            class="nav-button">
+
+            👥 Patient List
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+{% include "ai_engine/voice_assistant.html" with patient_id=patient.id %}
+
+</body>
+
+</html>

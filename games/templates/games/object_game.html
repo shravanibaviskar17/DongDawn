@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Object Recognition -  DongDawn</title>
+
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f7fa;
+
+            margin: 0;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+
+        .container {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.1);
+
+        }
+
+
+        h1 {
+
+            font-size: 34px;
+
+        }
+
+
+        .instruction {
+
+            font-size: 22px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .difficulty {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            background: #eef3f8;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin: 20px 0;
+
+        }
+
+
+        .object {
+
+            font-size: 110px;
+
+            margin: 25px;
+
+        }
+
+
+        .question {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+        }
+
+
+        .option {
+
+            display: block;
+
+            width: 90%;
+
+            margin: 12px auto;
+
+            padding: 18px;
+
+            font-size: 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background: #e3f2fd;
+
+        }
+
+
+        .option:hover {
+
+            background: #bbdefb;
+
+        }
+
+
+        .option:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.6;
+
+        }
+
+
+        .start-button {
+
+            padding: 18px 35px;
+
+            font-size: 22px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background: #1976d2;
+
+            color: white;
+
+        }
+
+
+        .result {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f1f8e9;
+
+            border-radius: 15px;
+
+        }
+
+
+        .hidden {
+
+            display: none;
+
+        }
+
+
+        .home-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 25px;
+
+            background: #555;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        🧠 Object Recognition
+    </h1>
+
+
+    <p class="instruction">
+
+        Look at the object and
+        choose its correct name.
+
+    </p>
+
+
+    <div class="difficulty">
+
+        Difficulty:
+        <span id="difficultyText">
+            Easy
+        </span>
+
+    </div>
+
+
+    <!-- START -->
+
+    <div id="startScreen">
+
+        <p class="instruction">
+
+            Identify familiar everyday objects.
+
+        </p>
+
+
+        <button
+            class="start-button"
+            onclick="startGame()"
+        >
+
+            ▶ Start Game
+
+        </button>
+
+    </div>
+
+
+    <!-- GAME -->
+
+    <div
+        id="gameScreen"
+        class="hidden"
+    >
+
+        <div
+            id="object"
+            class="object"
+        ></div>
+
+
+        <p class="question">
+
+            What is this?
+
+        </p>
+
+
+        <div id="options"></div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+        id="result"
+        class="result hidden"
+    ></div>
+
+
+    <a
+        href="/"
+        class="home-button"
+    >
+
+        🏠 Back to Home
+
+    </a>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   GAME VARIABLES
+========================================== */
+
+
+let currentDifficulty = "easy";
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let correctAnswers = 0;
+
+let attempts = 0;
+
+let startTime = 0;
+
+
+/* ==========================================
+   OBJECT DATABASE
+========================================== */
+
+
+const objects = [
+
+    {
+        emoji: "🥛",
+        name: "Glass",
+        options: [
+            "Glass",
+            "Chair",
+            "Clock",
+            "Book"
+        ]
+    },
+
+    {
+        emoji: "🍎",
+        name: "Apple",
+        options: [
+            "Apple",
+            "Cup",
+            "Key",
+            "Phone"
+        ]
+    },
+
+    {
+        emoji: "📱",
+        name: "Phone",
+        options: [
+            "Phone",
+            "Spoon",
+            "Book",
+            "Bottle"
+        ]
+    },
+
+    {
+        emoji: "🪑",
+        name: "Chair",
+        options: [
+            "Chair",
+            "Apple",
+            "Clock",
+            "Glass"
+        ]
+    },
+
+    {
+        emoji: "📖",
+        name: "Book",
+        options: [
+            "Book",
+            "Phone",
+            "Cup",
+            "Key"
+        ]
+    },
+
+    {
+        emoji: "⏰",
+        name: "Clock",
+        options: [
+            "Clock",
+            "Chair",
+            "Apple",
+            "Spoon"
+        ]
+    },
+
+    {
+        emoji: "🥄",
+        name: "Spoon",
+        options: [
+            "Spoon",
+            "Phone",
+            "Book",
+            "Bottle"
+        ]
+    },
+
+    {
+        emoji: "🔑",
+        name: "Key",
+        options: [
+            "Key",
+            "Glass",
+            "Chair",
+            "Apple"
+        ]
+    },
+
+    {
+        emoji: "🍵",
+        name: "Cup",
+        options: [
+            "Cup",
+            "Clock",
+            "Phone",
+            "Book"
+        ]
+    },
+
+    {
+        emoji: "💊",
+        name: "Medicine",
+        options: [
+            "Medicine",
+            "Apple",
+            "Key",
+            "Chair"
+        ]
+    }
+
+];
+
+
+/* ==========================================
+   GET AI DIFFICULTY
+========================================== */
+
+
+async function getDifficulty() {
+
+
+    const patientId =
+        "{{ patient_id }}";
+
+
+    if (!patientId) {
+
+        currentDifficulty = "easy";
+
+        updateDifficulty();
+
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch(
+
+            "/ai/next-difficulty/?patient_id="
+            + patientId
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            currentDifficulty =
+                data.difficulty;
+
+        }
+
+        else {
+
+            currentDifficulty = "easy";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Difficulty error:",
+            error
+        );
+
+        currentDifficulty = "easy";
+
+    }
+
+
+    updateDifficulty();
+
+}
+
+
+/* ==========================================
+   UPDATE DIFFICULTY DISPLAY
+========================================== */
+
+
+function updateDifficulty() {
+
+
+    document
+        .getElementById(
+            "difficultyText"
+        )
+        .innerText =
+
+        currentDifficulty
+            .charAt(0)
+            .toUpperCase()
+        +
+        currentDifficulty.slice(1);
+
+}
+
+
+/* ==========================================
+   SELECT QUESTIONS
+========================================== */
+
+
+function prepareQuestions() {
+
+
+    let numberOfQuestions = 3;
+
+
+    if (
+        currentDifficulty === "medium"
+    ) {
+
+        numberOfQuestions = 5;
+
+    }
+
+
+    else if (
+        currentDifficulty === "hard"
+    ) {
+
+        numberOfQuestions = 7;
+
+    }
+
+
+    questions =
+        [...objects]
+        .sort(
+            () => Math.random() - 0.5
+        )
+        .slice(
+            0,
+            numberOfQuestions
+        );
+
+}
+
+
+/* ==========================================
+   START GAME
+========================================== */
+
+
+async function startGame() {
+
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+
+    await getDifficulty();
+
+
+    prepareQuestions();
+
+
+    currentQuestion = 0;
+
+    correctAnswers = 0;
+
+    attempts = 0;
+
+
+    startTime = Date.now();
+
+
+    document
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
+
+
+    showQuestion();
+
+}
+
+
+/* ==========================================
+   SHOW QUESTION
+========================================== */
+
+
+function showQuestion() {
+
+
+    const question =
+        questions[currentQuestion];
+
+
+    document
+        .getElementById("object")
+        .innerText =
+        question.emoji;
+
+
+    const options =
+        document.getElementById(
+            "options"
+        );
+
+
+    options.innerHTML = "";
+
+
+    question.options
+        .sort(
+            () => Math.random() - 0.5
+        )
+        .forEach(
+            option => {
+
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "option";
+
+
+                button.innerText =
+                    option;
+
+
+                button.onclick =
+                    function() {
+
+                        checkAnswer(
+                            option
+                        );
+
+                    };
+
+
+                options.appendChild(
+                    button
+                );
+
+            }
+        );
+
+}
+
+
+/* ==========================================
+   CHECK ANSWER
+========================================== */
+
+
+function checkAnswer(answer) {
+
+
+    attempts++;
+
+
+    const question =
+        questions[currentQuestion];
+
+
+    if (
+        answer === question.name
+    ) {
+
+        correctAnswers++;
+
+    }
+
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion >=
+        questions.length
+    ) {
+
+        finishGame();
+
+    }
+
+    else {
+
+        showQuestion();
+
+    }
+
+}
+
+
+/* ==========================================
+   FINISH GAME
+========================================== */
+
+
+function finishGame() {
+
+
+    const completionTime =
+
+        (
+            Date.now() -
+            startTime
+        ) / 1000;
+
+
+    const accuracy =
+
+        (
+            correctAnswers /
+            questions.length
+        ) * 100;
+
+
+    const score =
+        Math.round(accuracy);
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    result.innerHTML =
+
+        "🎉 Game Completed!<br><br>" +
+
+        "Difficulty: " +
+        currentDifficulty +
+        "<br>" +
+
+        "Correct Answers: " +
+        correctAnswers +
+        " / " +
+        questions.length +
+        "<br>" +
+
+        "Score: " +
+        score +
+        "<br>" +
+
+        "Accuracy: " +
+        accuracy.toFixed(2) +
+        "%<br>" +
+
+        "Time: " +
+        completionTime.toFixed(2) +
+        " seconds";
+
+
+    result.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("hidden");
+
+
+    saveResult(
+
+        score,
+
+        attempts,
+
+        accuracy,
+
+        completionTime
+
+    );
+
+}
+
+
+/* ==========================================
+   SAVE RESULT
+========================================== */
+
+
+function saveResult(
+
+    score,
+
+    attempts,
+
+    accuracy,
+
+    completionTime
+
+) {
+
+
+    fetch(
+        "/games/save-result/",
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "X-CSRFToken":
+                    getCookie(
+                        "csrftoken"
+                    )
+
+            },
+
+            body:
+                JSON.stringify({
+
+                    game_name:
+                        "Object Recognition",
+
+                    score:
+                        score,
+
+                    attempts:
+                        attempts,
+
+                    accuracy:
+                        accuracy,
+
+                    difficulty:
+                        currentDifficulty,
+
+                    completion_time:
+                        completionTime,
+
+                    patient_id:
+                        "{{ patient_id }}"
+
+                })
+
+        }
+    )
+
+    .then(
+        response =>
+            response.json()
+    )
+
+    .then(
+        data => {
+
+            if (data.success) {
+
+                console.log(
+                    "Object Recognition result saved:",
+                    data
+                );
+
+            }
+
+            else {
+
+                console.error(
+                    "Save error:",
+                    data.error
+                );
+
+            }
+
+        }
+    )
+
+    .catch(
+        error => {
+
+            console.error(
+                "Request failed:",
+                error
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CSRF COOKIE
+========================================== */
+
+
+function getCookie(name) {
+
+
+    let cookieValue = null;
+
+
+    if (
+        document.cookie &&
+        document.cookie !== ""
+    ) {
+
+
+        const cookies =
+            document.cookie.split(";");
+
+
+        for (
+            let cookie of cookies
+        ) {
+
+
+            cookie =
+                cookie.trim();
+
+
+            if (
+                cookie.startsWith(
+                    name + "="
+                )
+            ) {
+
+
+                cookieValue =
+                    decodeURIComponent(
+
+                        cookie.substring(
+                            name.length + 1
+                        )
+
+                    );
+
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    return cookieValue;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

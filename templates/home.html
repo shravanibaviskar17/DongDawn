@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DongDawn | Care That Feels Like Home</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: #fffaf4;
+            color: #28332f;
+            line-height: 1.6;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 18px 7%;
+
+            background: rgba(255, 250, 244, 0.94);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid #eee2d5;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            text-decoration: none;
+            color: #28332f;
+
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: linear-gradient(
+                135deg,
+                #f4a261,
+                #e9c46a
+            );
+
+            font-size: 23px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #53605b;
+            font-size: 15px;
+            font-weight: 500;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d97745;
+        }
+
+        .nav-button {
+            text-decoration: none;
+            color: white !important;
+
+            background: #315c52;
+
+            padding: 12px 22px;
+            border-radius: 30px;
+
+            transition: 0.3s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            background: #244940;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 88vh;
+
+            padding: 80px 7%;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 70px;
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    #ffe4bf 0,
+                    transparent 32%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fffaf4,
+                    #f9efe3
+                );
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .small-heading {
+            display: inline-block;
+
+            padding: 8px 16px;
+
+            background: #f8e5d2;
+            color: #b9653c;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(48px, 6vw, 78px);
+
+            line-height: 1.05;
+
+            margin-bottom: 25px;
+
+            color: #293b35;
+        }
+
+        .hero h1 span {
+            color: #d9794d;
+        }
+
+        .hero p {
+            max-width: 590px;
+
+            font-size: 19px;
+            color: #68736e;
+
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 15px 27px;
+
+            border-radius: 35px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .primary-button {
+            background: #315c52;
+            color: white;
+
+            box-shadow: 0 10px 25px rgba(49, 92, 82, 0.18);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(49, 92, 82, 0.25);
+        }
+
+        .secondary-button {
+            color: #315c52;
+            background: white;
+            border: 1px solid #ddd1c3;
+        }
+
+        .secondary-button:hover {
+            transform: translateY(-3px);
+            border-color: #315c52;
+        }
+
+        /* ================= HERO VISUAL ================= */
+
+        .hero-visual {
+            position: relative;
+
+            min-height: 480px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-circle {
+            width: 390px;
+            height: 390px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f7c98d,
+                    #f2a66f
+                );
+
+            position: relative;
+
+            box-shadow:
+                0 30px 70px rgba(177, 105, 62, 0.18);
+        }
+
+        .home-circle::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 210px;
+
+            background: #fff6eb;
+
+            left: 45px;
+            bottom: 45px;
+
+            border-radius: 50% 50% 20px 20px;
+        }
+
+        .home-icon {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            font-size: 130px;
+
+            z-index: 2;
+        }
+
+        .floating-card {
+            position: absolute;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            padding: 14px 18px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 15px 35px rgba(52, 45, 38, 0.12);
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .card-one {
+            top: 55px;
+            left: 5px;
+        }
+
+        .card-two {
+            right: 0;
+            top: 150px;
+
+            animation-delay: 1s;
+        }
+
+        .card-three {
+            left: 20px;
+            bottom: 65px;
+
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        /* ================= INTRO ================= */
+
+        .section {
+            padding: 95px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: auto auto 55px;
+        }
+
+        .section-heading small {
+            color: #d9794d;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 45px;
+
+            margin: 12px 0;
+
+            color: #293b35;
+        }
+
+        .section-heading p {
+            color: #707b76;
+            font-size: 17px;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .feature-card {
+            padding: 35px 30px;
+
+            background: white;
+
+            border: 1px solid #eee1d4;
+
+            border-radius: 25px;
+
+            transition: 0.35s;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 20px 45px rgba(63, 50, 40, 0.09);
+        }
+
+        .feature-icon {
+            width: 62px;
+            height: 62px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff0df;
+
+            border-radius: 18px;
+
+            font-size: 29px;
+
+            margin-bottom: 22px;
+        }
+
+        .feature-card h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #74807a;
+            font-size: 15px;
+        }
+
+        /* ================= HOME FEEL SECTION ================= */
+
+        .home-section {
+            padding: 100px 7%;
+
+            background: #315c52;
+
+            color: white;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .home-text {
+            max-width: 600px;
+        }
+
+        .home-text small {
+            color: #f4c98f;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+        }
+
+        .home-text h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 50px;
+
+            line-height: 1.15;
+
+            margin: 15px 0 20px;
+        }
+
+        .home-text p {
+            color: #dbe8e3;
+            font-size: 17px;
+        }
+
+        .home-points {
+            margin-top: 30px;
+
+            display: grid;
+            gap: 15px;
+        }
+
+        .home-point {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            font-size: 16px;
+        }
+
+        .check {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f4a261;
+            border-radius: 50%;
+        }
+
+        .home-quote {
+            background: #f7efe5;
+
+            padding: 45px;
+
+            border-radius: 30px;
+
+            color: #293b35;
+
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .home-quote-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .home-quote p {
+            font-family: "Playfair Display", serif;
+
+            font-size: 28px;
+
+            line-height: 1.35;
+        }
+
+        /* ================= GAMES ================= */
+
+        .games-section {
+            background: #fffaf4;
+        }
+
+        .games {
+            max-width: 1150px;
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .game-card {
+            background: white;
+
+            padding: 27px;
+
+            border-radius: 23px;
+
+            border: 1px solid #eee1d4;
+
+            transition: 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 18px 35px rgba(55, 45, 35, 0.08);
+        }
+
+        .game-card .emoji {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .game-card h3 {
+            margin-bottom: 7px;
+        }
+
+        .game-card p {
+            color: #78827d;
+            font-size: 14px;
+        }
+
+        /* ================= AI SECTION ================= */
+
+        .ai-section {
+            padding: 100px 7%;
+
+            background: #f4eadf;
+        }
+
+        .ai-container {
+            max-width: 1150px;
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+        .ai-content h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 47px;
+
+            line-height: 1.15;
+
+            margin: 12px 0 20px;
+        }
+
+        .ai-content p {
+            color: #69736e;
+            font-size: 17px;
+        }
+
+        .ai-flow {
+            display: grid;
+            gap: 15px;
+        }
+
+        .flow-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 20px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            box-shadow: 0 10px 25px rgba(70, 52, 38, 0.06);
+        }
+
+        .flow-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff0df;
+
+            border-radius: 15px;
+
+            font-size: 24px;
+        }
+
+        .flow-card strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .flow-card span {
+            color: #77817d;
+            font-size: 13px;
+        }
+
+        /* ================= CAREGIVER ================= */
+
+        .care-section {
+            padding: 100px 7%;
+
+            text-align: center;
+        }
+
+        .care-box {
+            max-width: 950px;
+
+            margin: auto;
+
+            padding: 60px 40px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff1df,
+                    #f7e4d3
+                );
+
+            border-radius: 35px;
+        }
+
+        .care-box h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 47px;
+
+            color: #293b35;
+
+            margin-bottom: 15px;
+        }
+
+        .care-box p {
+            max-width: 650px;
+
+            margin: auto auto 30px;
+
+            color: #69736e;
+        }
+
+        /* ================= FINAL CTA ================= */
+
+        .cta {
+            padding: 100px 7%;
+
+            text-align: center;
+
+            background: #fff;
+        }
+
+        .cta h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 52px;
+
+            color: #293b35;
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #707b76;
+
+            font-size: 17px;
+
+            max-width: 600px;
+
+            margin: auto auto 30px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #263f39;
+
+            color: white;
+
+            padding: 55px 7% 25px;
+        }
+
+        .footer-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 40px;
+
+            padding-bottom: 35px;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-brand h3 {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            color: #bdcbc6;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            display: block;
+
+            color: #bdcbc6;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            margin: 8px 0;
+
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.12);
+
+            padding-top: 20px;
+
+            text-align: center;
+
+            color: #9eb0aa;
+
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            .hero,
+            .home-section,
+            .ai-container {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 400px;
+            }
+
+            .features,
+            .games {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .home-points {
+                text-align: left;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 14px 5%;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .hero h1 {
+                font-size: 47px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .home-circle {
+                width: 290px;
+                height: 290px;
+            }
+
+            .home-circle::before {
+                width: 220px;
+                height: 150px;
+                left: 35px;
+                bottom: 35px;
+            }
+
+            .home-icon {
+                font-size: 95px;
+            }
+
+            .floating-card {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+
+            .features,
+            .games {
+                grid-template-columns: 1fr;
+            }
+
+            .section,
+            .home-section,
+            .ai-section,
+            .care-section,
+            .cta {
+                padding: 70px 5%;
+            }
+
+            .section-heading h2,
+            .home-text h2,
+            .ai-content h2,
+            .care-box h2,
+            .cta h2 {
+                font-size: 37px;
+            }
+
+            .footer-links {
+                gap: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <a href="/" class="logo">
+
+        <span class="logo-icon">🌅</span>
+
+        DongDawn
+
+    </a>
+
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#features">Features</a>
+
+        <a href="#games">Activities</a>
+
+        <a href="#care">Caregivers</a>
+
+        <a href="/patients/" class="nav-button">
+            Get Started
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <span class="small-heading">
+            🌅 A brighter day begins here
+        </span>
+
+        <h1>
+            Where Care
+            <span>Feels Like Home.</span>
+        </h1>
+
+        <p>
+            DongDawn brings cognitive activities, familiar routines,
+            gentle reminders and caregiver support together in one
+            warm and simple digital space.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/patients/" class="primary-button">
+                Start the Journey →
+            </a>
+
+            <a href="#features" class="secondary-button">
+                Explore DongDawn
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="home-circle">
+
+            <div class="home-icon">
+                🏠
+            </div>
+
+        </div>
+
+        <div class="floating-card card-one">
+            🧠 Cognitive Activities
+        </div>
+
+        <div class="floating-card card-two">
+            🔔 Daily Reminder
+        </div>
+
+        <div class="floating-card card-three">
+            ❤️ Family Care
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="section" id="features">
+
+    <div class="section-heading">
+
+        <small>Gentle. Simple. Meaningful.</small>
+
+        <h2>
+            Care that fits into everyday life.
+        </h2>
+
+        <p>
+            Designed to support seniors through familiar activities,
+            routines and connections.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <h3>Cognitive Support</h3>
+
+            <p>
+                Engaging activities that encourage memory,
+                attention, recognition and everyday thinking.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🔔
+            </div>
+
+            <h3>Gentle Reminders</h3>
+
+            <p>
+                Keep track of medicines, meals, water,
+                appointments and daily routines.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                👨‍👩‍👧
+            </div>
+
+            <h3>Connected Care</h3>
+
+            <p>
+                Help caregivers stay connected with the
+                activities and routines of their loved ones.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>Adaptive Experience</h3>
+
+            <p>
+                Activity difficulty can adapt according to
+                the user's recent performance.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>Progress Insights</h3>
+
+            <p>
+                Simple performance information helps caregivers
+                understand activity engagement over time.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🌏
+            </div>
+
+            <h3>Designed for Communities</h3>
+
+            <p>
+                Built with accessibility, familiar experiences
+                and low-connectivity environments in mind.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEELS LIKE HOME ================= -->
+
+<section class="home-section">
+
+    <div class="home-text">
+
+        <small>THE DONGDAWN PROMISE</small>
+
+        <h2>
+            Because technology should feel human.
+        </h2>
+
+        <p>
+            For many seniors, familiar surroundings and everyday
+            routines bring comfort. DongDawn is designed to bring
+            that same feeling into digital care.
+        </p>
+
+
+        <div class="home-points">
+
+            <div class="home-point">
+
+                <span class="check">✓</span>
+
+                Simple and elderly-friendly experience
+
+            </div>
+
+            <div class="home-point">
+
+                <span class="check">✓</span>
+
+                Familiar everyday activities
+
+            </div>
+
+            <div class="home-point">
+
+                <span class="check">✓</span>
+
+                Support for caregivers and families
+
+            </div>
+
+            <div class="home-point">
+
+                <span class="check">✓</span>
+
+                Focus on connection, not complexity
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="home-quote">
+
+        <div class="home-quote-icon">
+            🏡
+        </div>
+
+        <p>
+            “Sometimes the greatest comfort
+            is simply feeling remembered.”
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GAMES ================= -->
+
+<section class="section games-section" id="games">
+
+    <div class="section-heading">
+
+        <small>COGNITIVE ACTIVITIES</small>
+
+        <h2>
+            Learn. Play. Remember.
+        </h2>
+
+        <p>
+            Turn everyday cognitive practice into
+            simple and enjoyable moments.
+        </p>
+
+    </div>
+
+
+    <div class="games">
+
+        <div class="game-card">
+
+            <div class="emoji">🧠</div>
+
+            <h3>Memory Matching</h3>
+
+            <p>
+                Match familiar cards and exercise memory.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <div class="emoji">🕐</div>
+
+            <h3>Daily Routine Recall</h3>
+
+            <p>
+                Arrange familiar daily activities in order.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <div class="emoji">👁️</div>
+
+            <h3>Object Recognition</h3>
+
+            <p>
+                Identify familiar objects from everyday life.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <div class="emoji">🧩</div>
+
+            <h3>Pattern Recognition</h3>
+
+            <p>
+                Observe patterns and identify what comes next.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <div class="emoji">🎯</div>
+
+            <h3>Attention & Concentration</h3>
+
+            <p>
+                Simple activities designed to encourage focus.
+            </p>
+
+        </div>
+
+
+        <div class="game-card">
+
+            <div class="emoji">❤️</div>
+
+            <h3>Emotional Recognition</h3>
+
+            <p>
+                Recognize emotions through familiar expressions.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI ================= -->
+
+<section class="ai-section">
+
+    <div class="ai-container">
+
+        <div class="ai-content">
+
+            <small>
+                INTELLIGENT SUPPORT
+            </small>
+
+            <h2>
+                DongDawn learns with you.
+            </h2>
+
+            <p>
+                Everyone is different. DongDawn can use recent
+                activity performance to adjust cognitive game
+                difficulty, helping create a more comfortable
+                and engaging experience.
+            </p>
+
+        </div>
+
+
+        <div class="ai-flow">
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    🎮
+                </div>
+
+                <div>
+
+                    <strong>
+                        Complete an activity
+                    </strong>
+
+                    <span>
+                        Play and interact at your own pace.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <strong>
+                        Performance is recorded
+                    </strong>
+
+                    <span>
+                        Accuracy and activity results are tracked.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <strong>
+                        Difficulty adapts
+                    </strong>
+
+                    <span>
+                        The next activity can become easier or harder.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CAREGIVER ================= -->
+
+<section class="care-section" id="care">
+
+    <div class="care-box">
+
+        <h2>
+            Care doesn't have to be far away.
+        </h2>
+
+        <p>
+            DongDawn helps caregivers stay connected with
+            patients through reminders, activity history,
+            progress insights and everyday support.
+        </p>
+
+        <a href="/caregivers/" class="primary-button">
+            Open Caregiver Dashboard →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL CTA ================= -->
+
+<section class="cta">
+
+    <h2>
+        Every memory matters.
+    </h2>
+
+    <p>
+        Every routine. Every smile. Every little moment.
+        DongDawn is here to make everyday care feel a little
+        more like home.
+    </p>
+
+    <a href="/patients/" class="primary-button">
+        Begin Your Journey →
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-top">
+
+        <div class="footer-brand">
+
+            <h3>
+                🌅 DongDawn
+            </h3>
+
+            <p>
+                Care that feels like home.
+                Supporting cognitive engagement,
+                everyday routines and connected care.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <div>
+
+                <h4>Explore</h4>
+
+                <a href="/">Home</a>
+
+                <a href="#features">Features</a>
+
+                <a href="#games">Activities</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Care</h4>
+
+                <a href="/patients/">Patients</a>
+
+                <a href="/caregivers/">Caregivers</a>
+
+                <a href="/reminders/">Reminders</a>
+
+                <a href="/analytics/">Analytics</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 DongDawn · Care that feels like home.
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
