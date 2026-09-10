@@ -48,3 +48,47 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PatientLocation(models.Model):
+
+    patient = models.OneToOneField(
+        Patient,
+        on_delete=models.CASCADE,
+        related_name='latest_location'
+    )
+
+    latitude = models.DecimalField(
+        max_digits=10,
+        decimal_places=7
+    )
+
+    longitude = models.DecimalField(
+        max_digits=10,
+        decimal_places=7
+    )
+
+    accuracy = models.FloatField(
+        null=True,
+        blank=True
+    )
+
+    is_shared = models.BooleanField(
+        default=False
+    )
+
+    consent_given = models.BooleanField(
+        default=False
+    )
+
+    consent_given_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self):
+        return f"{self.patient.name} - Latest Location"

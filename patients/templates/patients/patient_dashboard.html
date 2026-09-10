@@ -8,7 +8,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title> DongDawn - Patient Dashboard</title>
+    <title>DongDawn - Patient Dashboard</title>
+
 
     <style>
 
@@ -16,190 +17,590 @@
             box-sizing: border-box;
         }
 
+
         body {
+
             margin: 0;
+
             font-family: Arial, sans-serif;
+
             background: #f4f8fb;
+
             color: #222;
+
         }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
         .header {
+
             background: #315c8c;
+
             color: white;
+
             padding: 25px;
+
             text-align: center;
+
         }
+
 
         .header h1 {
+
             margin: 0;
+
             font-size: 34px;
+
         }
+
 
         .header p {
+
             font-size: 20px;
+
             margin: 10px 0 0;
+
         }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
 
         .container {
+
             max-width: 1100px;
+
             margin: auto;
+
             padding: 25px;
+
         }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
 
         .welcome {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 20px;
+
             margin-bottom: 25px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.08);
+
         }
+
 
         .welcome h2 {
+
             font-size: 30px;
+
             margin-top: 0;
+
         }
+
 
         .welcome p {
+
             font-size: 20px;
+
         }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
 
         .section-title {
+
             font-size: 28px;
+
             margin: 30px 0 15px;
+
         }
+
+
+        /* =====================================================
+           GAMES
+        ===================================================== */
 
         .games-grid {
+
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 18px;
+
         }
+
 
         .game-card {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 18px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.08);
+
         }
+
 
         .game-card h3 {
+
             font-size: 24px;
+
             margin-top: 0;
+
         }
+
 
         .game-card p {
+
             font-size: 18px;
+
             line-height: 1.5;
+
         }
+
 
         .game-button {
+
             display: block;
+
             text-align: center;
+
             text-decoration: none;
+
             background: #315c8c;
+
             color: white;
+
             padding: 16px;
+
             border-radius: 12px;
+
             font-size: 20px;
+
             margin-top: 15px;
+
         }
+
 
         .game-button:hover {
+
             opacity: 0.9;
+
         }
+
+
+        /* =====================================================
+           REMINDERS
+        ===================================================== */
 
         .reminders {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 18px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.08);
+
         }
+
 
         .reminder-card {
+
             border: 1px solid #ddd;
+
             padding: 18px;
+
             border-radius: 12px;
+
             margin-bottom: 12px;
+
         }
+
 
         .reminder-card h3 {
+
             margin: 0 0 8px;
+
             font-size: 22px;
+
         }
+
 
         .reminder-card p {
+
             font-size: 18px;
+
             margin: 6px 0;
+
         }
+
 
         .no-reminders {
+
             font-size: 20px;
+
             padding: 15px;
+
         }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
 
         .progress {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 18px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.08);
+
         }
+
 
         .result-row {
+
             border-bottom: 1px solid #ddd;
+
             padding: 15px 0;
+
         }
+
 
         .result-row:last-child {
+
             border-bottom: none;
+
         }
+
 
         .result-row strong {
+
             font-size: 20px;
+
         }
+
 
         .result-row span {
+
             font-size: 18px;
+
         }
+
+
+        /* =====================================================
+           LOCATION SHARING
+        ===================================================== */
+
+        .location-card {
+
+            margin: 30px 0;
+
+            padding: 28px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f8ef,
+                    #fff8ed
+                );
+
+            border: 1px solid #dfe5d9;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.06);
+
+        }
+
+
+        .location-header {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .location-label {
+
+            color: #d97745;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .location-card h2 {
+
+            color: #24483b;
+
+            margin: 8px 0;
+
+            font-size: 28px;
+
+        }
+
+
+        .location-card p {
+
+            color: #68756f;
+
+            line-height: 1.6;
+
+            font-size: 17px;
+
+        }
+
+
+        /* Consent row */
+
+        .location-consent {
+
+            margin-top: 20px;
+
+        }
+
+
+        .consent-row {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: flex-start;
+
+            margin: 20px 0;
+
+            color: #45554d;
+
+            line-height: 1.5;
+
+            font-size: 17px;
+
+        }
+
+
+        .consent-row input {
+
+            width: 20px;
+
+            height: 20px;
+
+            margin-top: 2px;
+
+            flex-shrink: 0;
+
+            cursor: pointer;
+
+        }
+
+
+        /* Location buttons */
+
+        .location-button,
+        .location-stop-button {
+
+            border: none;
+
+            padding: 13px 20px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            margin-right: 8px;
+
+            margin-bottom: 8px;
+
+            font-weight: 700;
+
+            font-size: 16px;
+
+        }
+
+
+        .location-button {
+
+            background: #24483b;
+
+            color: white;
+
+        }
+
+
+        .location-button:hover {
+
+            background: #19392e;
+
+        }
+
+
+        .location-stop-button {
+
+            background: #eee5dc;
+
+            color: #6d4c41;
+
+        }
+
+
+        .location-stop-button:hover {
+
+            background: #e3d5c9;
+
+        }
+
+
+        /* Status */
+
+        .location-status {
+
+            margin-top: 18px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #526158;
+
+            line-height: 1.5;
+
+            font-size: 16px;
+
+            border: 1px solid #e4e8e3;
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
 
         .navigation {
+
             text-align: center;
+
             margin: 35px 0 15px;
+
         }
+
 
         .nav-button {
+
             display: inline-block;
+
             background: #777;
+
             color: white;
+
             text-decoration: none;
+
             padding: 15px 22px;
+
             margin: 8px;
+
             border-radius: 12px;
+
             font-size: 19px;
+
         }
+
 
         .reminder-button {
+
             background: #315c8c;
+
         }
 
+
         .caregiver-button {
+
             background: #555;
+
         }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
         @media (max-width: 700px) {
 
             .games-grid {
+
                 grid-template-columns: 1fr;
+
             }
+
 
             .header h1 {
+
                 font-size: 28px;
+
             }
+
 
             .welcome h2 {
+
                 font-size: 25px;
+
             }
 
+
             .section-title {
+
                 font-size: 24px;
+
+            }
+
+
+            .location-card h2 {
+
+                font-size: 24px;
+
+            }
+
+
+            .location-button,
+            .location-stop-button {
+
+                width: 100%;
+
+                margin-right: 0;
+
             }
 
         }
@@ -212,19 +613,26 @@
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <div class="header">
 
-    <h1>🧠  DongDawn</h1>
+    <h1>🧠 DongDawn</h1>
 
     <p>Your Personal Memory & Wellness Assistant</p>
 
 </div>
 
 
+
 <div class="container">
 
 
-    <!-- WELCOME -->
+    <!-- =====================================================
+         WELCOME
+    ===================================================== -->
 
     <div class="welcome">
 
@@ -233,7 +641,7 @@
         </h2>
 
         <p>
-            Welcome to your  DongDawn dashboard.
+            Welcome to your DongDawn dashboard.
         </p>
 
         <p>
@@ -245,7 +653,9 @@
 
 
 
-    <!-- GAMES -->
+    <!-- =====================================================
+         GAMES
+    ===================================================== -->
 
     <h2 class="section-title">
         🧠 Cognitive Games
@@ -384,7 +794,9 @@
 
 
 
-    <!-- REMINDERS -->
+    <!-- =====================================================
+         REMINDERS
+    ===================================================== -->
 
     <h2 class="section-title">
         ⏰ Today's Reminders
@@ -449,10 +861,123 @@
 
 
 
-    <!-- RECENT PROGRESS -->
+    <!-- =====================================================
+         LOCATION SHARING
+    ===================================================== -->
 
     <h2 class="section-title">
+
+        🛡️ Safety & Location
+
+    </h2>
+
+
+    <section class="location-card">
+
+
+        <div class="location-header">
+
+            <span class="location-label">
+                SAFETY
+            </span>
+
+            <h2>
+                📍 My Location Sharing
+            </h2>
+
+            <p>
+                You can share your latest location
+                with your authorized caregiver for safety.
+            </p>
+
+            <p>
+                Your location is shared only when
+                you give your consent.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             CONSENT
+        ================================================= -->
+
+        <div class="location-consent">
+
+
+            <label class="consent-row">
+
+                <input
+                    type="checkbox"
+                    id="locationConsent"
+                >
+
+                <span>
+
+                    I consent to sharing my latest
+                    location with my authorized caregiver.
+
+                </span>
+
+            </label>
+
+
+            <!-- =================================================
+                 SHARE LOCATION BUTTON
+            ================================================= -->
+
+            <button
+                type="button"
+                onclick="enableLocationSharing()"
+                class="location-button">
+
+                📍 Share My Location
+
+            </button>
+
+
+            <!-- =================================================
+                 STOP SHARING BUTTON
+            ================================================= -->
+
+            <button
+                type="button"
+                onclick="stopLocationSharing()"
+                class="location-stop-button">
+
+                🛑 Stop Sharing
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             LOCATION STATUS
+        ================================================= -->
+
+        <div
+            id="locationStatus"
+            class="location-status">
+
+            Location sharing is currently off.
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RECENT PROGRESS
+    ===================================================== -->
+
+    <h2 class="section-title">
+
         📊 My Recent Progress
+
     </h2>
 
 
@@ -511,7 +1036,9 @@
 
 
 
-    <!-- NAVIGATION -->
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
 
     <div class="navigation">
 
@@ -549,7 +1076,457 @@
 </div>
 
 
-{% include "ai_engine/voice_assistant.html" with patient_id=patient.id %}
+
+<!-- =====================================================
+     LOCATION JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+// =====================================================
+// ENABLE LOCATION SHARING
+// =====================================================
+
+async function enableLocationSharing() {
+
+
+    const consent =
+        document.getElementById(
+            "locationConsent"
+        ).checked;
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    // -------------------------------------------------
+    // CHECK CONSENT
+    // -------------------------------------------------
+
+    if (!consent) {
+
+        status.innerText =
+            "⚠️ Please give consent before sharing your location.";
+
+        return;
+
+    }
+
+
+    // -------------------------------------------------
+    // CHECK BROWSER SUPPORT
+    // -------------------------------------------------
+
+    if (!navigator.geolocation) {
+
+        status.innerText =
+            "⚠️ Location services are not supported by this browser.";
+
+        return;
+
+    }
+
+
+    status.innerText =
+        "📡 Requesting your location...";
+
+
+    try {
+
+
+        // =================================================
+        // STEP 1
+        // GIVE CONSENT TO DJANGO
+        // =================================================
+
+        const consentResponse =
+            await fetch(
+                "{% url 'give_location_consent' patient.id %}",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-CSRFToken":
+                            getCookie("csrftoken")
+
+                    }
+
+                }
+            );
+
+
+        const consentData =
+            await consentResponse.json();
+
+
+        if (!consentData.success) {
+
+            status.innerText =
+                "⚠️ " + consentData.error;
+
+            return;
+
+        }
+
+
+        // =================================================
+        // STEP 2
+        // GET CURRENT GPS LOCATION
+        // =================================================
+
+        status.innerText =
+            "📍 Getting your current location...";
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            async function(position) {
+
+
+                const latitude =
+                    position.coords.latitude;
+
+
+                const longitude =
+                    position.coords.longitude;
+
+
+                const accuracy =
+                    position.coords.accuracy;
+
+
+                // -----------------------------------------
+                // SHOW STATUS
+                // -----------------------------------------
+
+                status.innerText =
+                    "📡 Saving your latest location...";
+
+
+                // =================================================
+                // STEP 3
+                // SEND LOCATION TO DJANGO
+                // =================================================
+
+                const response =
+                    await fetch(
+                        "{% url 'update_patient_location' patient.id %}",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "X-CSRFToken":
+                                    getCookie("csrftoken")
+
+                            },
+
+
+                            body: JSON.stringify({
+
+                                latitude:
+                                    latitude,
+
+                                longitude:
+                                    longitude,
+
+                                accuracy:
+                                    accuracy
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                // =================================================
+                // SUCCESS
+                // =================================================
+
+                if (data.success) {
+
+
+                    status.innerText =
+                        "✅ Your latest location has been shared with your authorized caregiver.";
+
+
+                }
+
+
+                else {
+
+
+                    status.innerText =
+                        "⚠️ " + data.error;
+
+
+                }
+
+
+            },
+
+
+            // =================================================
+            // LOCATION ERROR
+            // =================================================
+
+            function(error) {
+
+
+                if (error.code === 1) {
+
+
+                    status.innerText =
+                        "❌ Location permission was denied.";
+
+
+                }
+
+
+                else if (error.code === 2) {
+
+
+                    status.innerText =
+                        "⚠️ Your location could not be determined.";
+
+
+                }
+
+
+                else if (error.code === 3) {
+
+
+                    status.innerText =
+                        "⚠️ Location request timed out.";
+
+
+                }
+
+
+                else {
+
+
+                    status.innerText =
+                        "⚠️ Unable to get your location.";
+
+
+                }
+
+            },
+
+
+            // =================================================
+            // GPS OPTIONS
+            // =================================================
+
+            {
+
+                enableHighAccuracy: true,
+
+                timeout: 10000,
+
+                maximumAge: 0
+
+            }
+
+        );
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(error);
+
+
+        status.innerText =
+            "⚠️ Something went wrong while sharing your location.";
+
+
+    }
+
+}
+
+
+
+// =====================================================
+// STOP LOCATION SHARING
+// =====================================================
+
+async function stopLocationSharing() {
+
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    status.innerText =
+        "Stopping location sharing...";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "{% url 'stop_location_sharing' patient.id %}",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-CSRFToken":
+                            getCookie("csrftoken")
+
+                    }
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        if (data.success) {
+
+
+            document.getElementById(
+                "locationConsent"
+            ).checked = false;
+
+
+            status.innerText =
+                "🛑 Location sharing has been stopped.";
+
+
+        }
+
+
+        else {
+
+
+            status.innerText =
+                "⚠️ " + data.error;
+
+
+        }
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(error);
+
+
+        status.innerText =
+            "⚠️ Unable to stop location sharing.";
+
+
+    }
+
+}
+
+
+
+// =====================================================
+// GET CSRF COOKIE
+// =====================================================
+
+function getCookie(name) {
+
+
+    let cookieValue = null;
+
+
+    if (document.cookie) {
+
+
+        const cookies =
+            document.cookie.split(";");
+
+
+        for (
+            let cookie of cookies
+        ) {
+
+
+            cookie =
+                cookie.trim();
+
+
+            if (
+                cookie.startsWith(
+                    name + "="
+                )
+            ) {
+
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(
+                            name.length + 1
+                        )
+                    );
+
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    return cookieValue;
+
+}
+
+
+</script>
+
+
+
+<!-- =====================================================
+     VOICE ASSISTANT
+===================================================== -->
+
+{% include "ai_engine/voice_assistant.html"
+   with patient_id=patient.id %}
+
 
 </body>
 

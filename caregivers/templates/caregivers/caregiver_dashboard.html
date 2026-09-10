@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DongDawn - Caregiver Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff8ef;
+            color: #333;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(
+                135deg,
+                #f6a65b,
+                #e8793e
+            );
+
+            color: white;
+            padding: 22px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        .home-btn {
+            background: white;
+            color: #d96d35;
+
+            padding: 10px 18px;
+            border-radius: 20px;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            color: #245c45;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #666;
+        }
+
+        /* ================= PATIENT SELECTOR ================= */
+
+        .patient-box {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .patient-box h2 {
+            color: #245c45;
+            margin-bottom: 15px;
+        }
+
+        .patient-select {
+            width: 100%;
+            max-width: 450px;
+
+            padding: 13px;
+
+            border: 1px solid #ddd;
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            background: #fffaf5;
+        }
+
+        .select-btn {
+            margin-top: 12px;
+
+            padding: 11px 20px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #287653;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .select-btn:hover {
+            background: #1f5e42;
+        }
+
+        /* ================= ERROR ================= */
+
+        .error-box {
+            background: #ffe5e5;
+            color: #a33;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        /* ================= PATIENT INFO ================= */
+
+        .patient-info {
+            background: linear-gradient(
+                135deg,
+                #fff3df,
+                #fffaf4
+            );
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            border-left: 6px solid #e8793e;
+        }
+
+        .patient-info h2 {
+            color: #245c45;
+            margin-bottom: 12px;
+        }
+
+        .patient-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .detail {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+        }
+
+        .detail strong {
+            color: #245c45;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #245c45;
+        }
+
+        .stat-title {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* ================= TWO COLUMNS ================= */
+
+        .two-column {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(320px, 1fr));
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 24px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            color: #245c45;
+            margin-bottom: 18px;
+        }
+
+        /* ================= LOCATION ================= */
+
+        .location-card {
+            border: 2px solid #e9c9a7;
+
+            background: linear-gradient(
+                135deg,
+                #fffaf2,
+                #fff3df
+            );
+        }
+
+        .location-status {
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+        .status-on {
+            background: #d9f3e3;
+            color: #217044;
+        }
+
+        .status-off {
+            background: #ffe2e2;
+            color: #a33;
+        }
+
+        .location-details {
+            display: grid;
+            gap: 12px;
+        }
+
+        .location-row {
+            background: white;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .location-row span:first-child {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .map-btn {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            background: #287653;
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .map-btn:hover {
+            background: #1f5e42;
+        }
+
+        .no-location {
+            background: #fff;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            color: #777;
+
+            line-height: 1.6;
+        }
+
+        /* ================= GAME TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f7e5d3;
+            color: #245c45;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #fffaf5;
+        }
+
+        /* ================= REMINDERS ================= */
+
+        .reminder {
+            background: #fff8ef;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin-bottom: 12px;
+
+            border-left: 4px solid #e8793e;
+        }
+
+        .reminder-title {
+            font-weight: bold;
+            color: #245c45;
+        }
+
+        .reminder-date {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .empty {
+            color: #888;
+            padding: 15px 0;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 18px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .container {
+                padding: 20px 12px;
+            }
+
+            .location-row {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div>
+
+        <div class="logo">
+            🌅 DongDawn
+        </div>
+
+        <div class="subtitle">
+            Caregiver Dashboard
+        </div>
+
+    </div>
+
+    <a href="/" class="home-btn">
+        🏠 Home
+    </a>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h1>
+            Welcome{% if caregiver %}, {{ caregiver.name }}{% endif %} 👋
+        </h1>
+
+        <p>
+            Monitor your assigned patient's cognitive activities,
+            reminders, progress and safety information.
+        </p>
+
+    </div>
+
+
+    <!-- ================= ERROR ================= -->
+
+    {% if error %}
+
+        <div class="error-box">
+
+            ⚠️ {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================= PATIENT SELECTOR ================= -->
+
+    <div class="patient-box">
+
+        <h2>
+            👨‍⚕️ Select Patient
+        </h2>
+
+
+        {% if patients %}
+
+            <form method="GET">
+
+                <select
+                    name="patient_id"
+                    class="patient-select"
+                    required
+                >
+
+                    <option value="">
+                        -- Select a patient --
+                    </option>
+
+
+                    {% for patient in patients %}
+
+                        <option
+                            value="{{ patient.id }}"
+                            {% if selected_patient and selected_patient.id == patient.id %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ patient.name }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <br>
+
+
+                <button
+                    type="submit"
+                    class="select-btn"
+                >
+
+                    View Patient Dashboard
+
+                </button>
+
+            </form>
+
+        {% else %}
+
+            <p class="empty">
+
+                No patients are currently assigned to you.
+
+            </p>
+
+            <p style="margin-top:10px;color:#777;">
+
+                Assign a patient to this caregiver from the Django
+                admin panel.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if selected_patient %}
+
+
+    <!-- ================= PATIENT INFO ================= -->
+
+    <div class="patient-info">
+
+        <h2>
+            👤 {{ selected_patient.name }}
+        </h2>
+
+
+        <div class="patient-details">
+
+            <div class="detail">
+
+                <strong>Age:</strong>
+
+                {{ selected_patient.age }}
+
+            </div>
+
+
+            <div class="detail">
+
+                <strong>Gender:</strong>
+
+                {{ selected_patient.get_gender_display }}
+
+            </div>
+
+
+            {% if selected_patient.phone %}
+
+            <div class="detail">
+
+                <strong>Phone:</strong>
+
+                {{ selected_patient.phone }}
+
+            </div>
+
+            {% endif %}
+
+
+            {% if selected_patient.address %}
+
+            <div class="detail">
+
+                <strong>Address:</strong>
+
+                {{ selected_patient.address }}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🎮
+            </div>
+
+            <div class="stat-value">
+                {{ total_games }}
+            </div>
+
+            <div class="stat-title">
+                Games Played
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div class="stat-value">
+                {{ average_score }}
+            </div>
+
+            <div class="stat-title">
+                Average Score
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div class="stat-value">
+                {{ average_accuracy }}%
+            </div>
+
+            <div class="stat-title">
+                Average Accuracy
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div class="stat-value">
+                {{ best_score }}
+            </div>
+
+            <div class="stat-title">
+                Best Score
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🧠
+            </div>
+
+            <div class="stat-value"
+                 style="font-size:20px;">
+
+                {{ latest_difficulty }}
+
+            </div>
+
+            <div class="stat-title">
+                Latest Difficulty
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= LOCATION + REMINDERS ================= -->
+
+    <div class="two-column">
+
+
+        <!-- LOCATION -->
+
+        <div class="card location-card">
+
+            <h2>
+                📍 Patient Safety & Location
+            </h2>
+
+
+            {% if location and location.is_shared and location.consent_given %}
+
+                <div class="location-status status-on">
+
+                    🟢 Location Sharing ON
+
+                </div>
+
+
+                <div class="location-details">
+
+
+                    <div class="location-row">
+
+                        <span>
+                            Latitude
+                        </span>
+
+                        <span>
+                            {{ location.latitude }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="location-row">
+
+                        <span>
+                            Longitude
+                        </span>
+
+                        <span>
+                            {{ location.longitude }}
+                        </span>
+
+                    </div>
+
+
+                    {% if location.accuracy %}
+
+                    <div class="location-row">
+
+                        <span>
+                            Accuracy
+                        </span>
+
+                        <span>
+                            {{ location.accuracy|floatformat:0 }} meters
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <div class="location-row">
+
+                        <span>
+                            Last Updated
+                        </span>
+
+                        <span>
+                            {{ location.updated_at|date:"d M Y, h:i A" }}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <a
+                    class="map-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.google.com/maps?q={{ location.latitude }},{{ location.longitude }}"
+                >
+
+                    🗺️ Open Location in Google Maps
+
+                </a>
+
+
+            {% else %}
+
+                <div class="location-status status-off">
+
+                    🔴 Location Sharing OFF
+
+                </div>
+
+
+                <div class="no-location">
+
+                    <strong>
+                        Location is not currently shared.
+                    </strong>
+
+                    <br><br>
+
+                    The patient must provide consent and enable
+                    location sharing from their dashboard before
+                    their latest location becomes available to you.
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- REMINDERS -->
+
+        <div class="card">
+
+            <h2>
+                ⏰ Upcoming Reminders
+            </h2>
+
+
+            {% if reminders %}
+
+                {% for reminder in reminders %}
+
+                    <div class="reminder">
+
+                        <div class="reminder-title">
+
+                            {{ reminder.title }}
+
+                        </div>
+
+
+                        <div class="reminder-date">
+
+                            📅 {{ reminder.reminder_date }}
+
+                            {% if reminder.reminder_time %}
+
+                                &nbsp; | &nbsp;
+
+                                ⏰ {{ reminder.reminder_time }}
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty">
+
+                    No reminders found for this patient.
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= GAME RESULTS ================= -->
+
+    <div class="card">
+
+        <h2>
+            🧠 Recent Cognitive Game Results
+        </h2>
+
+
+        {% if game_results %}
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Game
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Accuracy
+                        </th>
+
+                        <th>
+                            Difficulty
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for result in game_results %}
+
+                    <tr>
+
+                        <td>
+
+                            {% if result.game %}
+                                {{ result.game }}
+                            {% elif result.game_name %}
+                                {{ result.game_name }}
+                            {% else %}
+                                Cognitive Game
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ result.score }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ result.accuracy }}%
+
+                        </td>
+
+
+                        <td>
+
+                            {{ result.difficulty }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ result.played_at|date:"d M Y, h:i A" }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <p class="empty">
+
+                No cognitive game results available yet.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- ================= NO PATIENT SELECTED ================= -->
+
+    <div class="card"
+         style="text-align:center;padding:50px 20px;">
+
+        <div style="font-size:55px;margin-bottom:15px;">
+            👵
+        </div>
+
+        <h2>
+            Select a patient to continue
+        </h2>
+
+        <p style="color:#777;margin-top:10px;">
+
+            Choose one of your assigned patients above to view
+            their cognitive progress, reminders and latest shared
+            location.
+
+        </p>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -40,4 +40,4 @@ class Caregiver(models.Model):
     )
 
     def __str__(self):
-        return self.namepython 
+        return self.name

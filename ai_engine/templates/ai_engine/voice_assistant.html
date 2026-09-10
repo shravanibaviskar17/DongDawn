@@ -37,6 +37,38 @@
                     🇮🇳 English
                 </option>
 
+                <option value="as">
+                    🟢 অসমীয়া — Assamese
+                </option>
+
+                <option value="bn">
+                    🔵 বাংলা — Bengali
+                </option>
+
+                <option value="brx">
+                    🟠 बड़ो — Bodo
+                </option>
+
+                <option value="mni">
+                    🟣 ꯃꯤꯇꯩ ꯂꯣꯟ — Manipuri
+                </option>
+
+                <option value="kha">
+                    🟡 Khasi
+                </option>
+
+                <option value="lus">
+                    🟤 Mizo
+                </option>
+
+                <option value="ne">
+                    🟢 नेपाली — Nepali
+                </option>
+
+                <option value="kok">
+                    🔴 Kokborok
+                </option>
+
                 <option value="hi">
                     🇮🇳 हिन्दी
                 </option>
@@ -213,6 +245,8 @@
     font-size: 14px;
 
     cursor: pointer;
+
+    max-width: 250px;
 
 }
 
@@ -408,6 +442,12 @@
 
     }
 
+    .dd-language-box select {
+
+        max-width: none;
+
+    }
+
 }
 
 </style>
@@ -428,10 +468,15 @@ function ddChangeLanguage(language) {
 
     if (ddRecognition) {
 
-        ddRecognition.lang =
-            ddGetSpeechCode(language);
+        ddRecognition.stop();
+
+        ddRecognition = null;
 
     }
+
+    document.getElementById(
+        "ddVoiceStatus"
+    ).innerText = ddGetText("speak");
 
 }
 
@@ -441,6 +486,22 @@ function ddGetSpeechCode(language) {
     const languages = {
 
         en: "en-IN",
+
+        as: "as-IN",
+
+        bn: "bn-IN",
+
+        brx: "br-IN",
+
+        mni: "mni-IN",
+
+        kha: "kha-IN",
+
+        lus: "lus-IN",
+
+        ne: "ne-NP",
+
+        kok: "kok-IN",
 
         hi: "hi-IN",
 
@@ -464,6 +525,62 @@ function ddGetText(key) {
             error: "Sorry, I could not understand that."
         },
 
+        as: {
+            listening: "মই শুনি আছোঁ...",
+            speak: "মাইক্ৰ'ফোনত টিপি কথা কওক",
+            unsupported: "এই ব্ৰাউজাৰত ভইচ সুবিধা উপলব্ধ নহয়।",
+            error: "ক্ষমা কৰিব, মই বুজিব নোৱাৰিলোঁ।"
+        },
+
+        bn: {
+            listening: "আমি শুনছি...",
+            speak: "মাইক্রোফোনে চাপ দিয়ে কথা বলুন",
+            unsupported: "এই ব্রাউজারে ভয়েস সুবিধা উপলব্ধ নয়।",
+            error: "দুঃখিত, আমি বুঝতে পারিনি।"
+        },
+
+        brx: {
+            listening: "आं सुननो हागौ...",
+            speak: "माइक्रोफोन दबायनानै बुं",
+            unsupported: "बे ब्राउजराव भ्वाइस सुविधा नाय।",
+            error: "माफ खालाम, आं बुजिनो हायाखै।"
+        },
+
+        mni: {
+            listening: "ꯑꯩ ꯈꯪꯗꯣꯏ...",
+            speak: "ꯃꯥꯏꯀ꯭ꯔꯣꯐꯣꯅꯗ ꯅꯝꯃꯨꯗꯅ ꯂꯣꯜ ꯕꯤꯔꯣ",
+            unsupported: "ꯑꯁꯤ ꯕ꯭ꯔꯥꯎꯖꯔꯗ ꯚꯣꯏꯁ ꯐꯤꯆꯔ ꯂꯩꯇꯦ",
+            error: "ꯃꯥꯐꯝ, ꯑꯩꯅ ꯈꯪꯕ ꯉꯝꯗꯦ"
+        },
+
+        kha: {
+            listening: "Nga sngap...",
+            speak: "Kyntait ïa ka microphone bad kren",
+            unsupported: "Ka voice recognition kam treikam ha kane ka browser.",
+            error: "Map, ngam lah ban sngewthuh."
+        },
+
+        lus: {
+            listening: "Ka lo...",
+            speak: "Microphone hmangin thusawi rawh",
+            unsupported: "He browser-ah voice recognition a awm lo.",
+            error: "Nga ngaihdam, ka hrethiam lo."
+        },
+
+        ne: {
+            listening: "म सुनिरहेको छु...",
+            speak: "माइक्रोफोन थिचेर बोल्नुहोस्",
+            unsupported: "यो ब्राउजरमा आवाज सुविधा उपलब्ध छैन।",
+            error: "माफ गर्नुहोस्, मैले बुझिनँ।"
+        },
+
+        kok: {
+            listening: "Angni...",
+            speak: "Microphone dabaiyano kotha ko",
+            unsupported: "He browser-a voice सुविधा उपलब्ध na.",
+            error: "Maf kor, hanv mhaka somzunk zaina."
+        },
+
         hi: {
             listening: "मैं सुन रहा हूँ...",
             speak: "माइक्रोफोन दबाकर बोलें",
@@ -480,7 +597,8 @@ function ddGetText(key) {
 
     };
 
-    return text[ddLanguage][key];
+    return text[ddLanguage]?.[key]
+        || text["en"][key];
 
 }
 
@@ -781,6 +899,54 @@ function ddUseExample(type) {
             game: "Start a game"
         },
 
+        as: {
+            reminder: "মোৰ পৰৱৰ্তী ৰিমাইণ্ডাৰ",
+            medicine: "মোৰ ঔষধ",
+            game: "এটা গেম আৰম্ভ কৰক"
+        },
+
+        bn: {
+            reminder: "আমার পরবর্তী রিমাইন্ডার",
+            medicine: "আমার ওষুধ",
+            game: "একটি গেম শুরু করুন"
+        },
+
+        brx: {
+            reminder: "आंनि उनाव थांनो होग्रा रिमाइंडार",
+            medicine: "आंनि दावाइ",
+            game: "गेम जागाय"
+        },
+
+        mni: {
+            reminder: "ꯑꯩꯒꯤ ꯅꯦꯛꯁꯠ ꯔꯤꯃꯥꯏꯟꯗꯔ",
+            medicine: "ꯑꯩꯒꯤ ꯑꯣꯁꯨꯗ",
+            game: "ꯒꯦꯝ ꯍꯧꯖꯤꯜꯂꯨ"
+        },
+
+        kha: {
+            reminder: "Ka jingkynmaw kaba wan",
+            medicine: "Ka dawai jong nga",
+            game: "Sdang ïa ka game"
+        },
+
+        lus: {
+            reminder: "Ka hriat reng ka lo",
+            medicine: "Ka damdawi ka",
+            game: "Game tan rawh"
+        },
+
+        ne: {
+            reminder: "मेरो अर्को रिमाइन्डर",
+            medicine: "मेरो औषधि",
+            game: "गेम सुरु गर्नुहोस्"
+        },
+
+        kok: {
+            reminder: "Mhozo favo reminder",
+            medicine: "Mhozo davai",
+            game: "Game suru kor"
+        },
+
         hi: {
             reminder: "मेरी अगली रिमाइंडर",
             medicine: "मेरी दवाई",
@@ -797,7 +963,8 @@ function ddUseExample(type) {
 
 
     const command =
-        examples[ddLanguage][type];
+        examples[ddLanguage]?.[type]
+        || examples["en"][type];
 
 
     document.getElementById(
