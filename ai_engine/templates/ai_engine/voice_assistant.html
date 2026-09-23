@@ -1,450 +1,240 @@
+<div class="voice-assistant">
 
-{% if patient_id %}
-
-<section class="dd-voice-card">
-
-    <div class="dd-voice-header">
-
+    <div class="voice-header">
         <div>
+            <h2>🎙️ DongDawn Voice Assistant</h2>
+            <p>Speak naturally and DongDawn will assist you.</p>
+        </div>
+    </div>
 
-            <span class="dd-voice-label">
-                DONGDAWN VOICE
-            </span>
+    <div class="voice-controls">
 
-            <h2>
-                🎙️ Talk to DongDawn
-            </h2>
+        <label for="voiceLanguage">
+            Select Language
+        </label>
 
-            <p>
-                Speak naturally. I'll help you with
-                reminders and cognitive activities.
+        <select id="voiceLanguage">
+            <option value="en-IN">
+                English
+            </option>
+
+            <option value="hi-IN">
+                Hindi
+            </option>
+
+            <option value="as-IN">
+                Assamese
+            </option>
+
+            <option value="lus-IN">
+                Mizo
+            </option>
+
+            <option value="kha-IN">
+                Khasi
+            </option>
+
+            <option value="mni-IN">
+                Meitei (Manipuri)
+            </option>
+
+            <option value="ne-NP">
+                Nepali
+            </option>
+
+        </select>
+
+        <button
+            type="button"
+            id="voiceButton"
+            onclick="startVoiceAssistant()"
+        >
+            🎤 Tap to Speak
+        </button>
+
+    </div>
+
+    <div class="voice-status" id="voiceStatus">
+        Ready to listen
+    </div>
+
+    <div class="voice-result">
+
+        <div class="voice-box">
+
+            <h3>🗣️ You said</h3>
+
+            <p id="voiceText">
+                Your speech will appear here...
             </p>
 
         </div>
 
-        <div class="dd-language-box">
+        <div class="voice-box">
 
-            <label for="ddLanguage">
-                🌐 Language
-            </label>
+            <h3>🤖 DongDawn</h3>
 
-            <select
-                id="ddLanguage"
-                onchange="ddChangeLanguage(this.value)"
-            >
-
-                <option value="en">
-                    🇮🇳 English
-                </option>
-
-                <option value="as">
-                    🟢 অসমীয়া — Assamese
-                </option>
-
-                <option value="bn">
-                    🔵 বাংলা — Bengali
-                </option>
-
-                <option value="brx">
-                    🟠 बड़ो — Bodo
-                </option>
-
-                <option value="mni">
-                    🟣 ꯃꯤꯇꯩ ꯂꯣꯟ — Manipuri
-                </option>
-
-                <option value="kha">
-                    🟡 Khasi
-                </option>
-
-                <option value="lus">
-                    🟤 Mizo
-                </option>
-
-                <option value="ne">
-                    🟢 नेपाली — Nepali
-                </option>
-
-                <option value="kok">
-                    🔴 Kokborok
-                </option>
-
-                <option value="hi">
-                    🇮🇳 हिन्दी
-                </option>
-
-                <option value="mr">
-                    🟠 मराठी
-                </option>
-
-            </select>
+            <p id="assistantResponse">
+                How can I help you?
+            </p>
 
         </div>
 
     </div>
 
-
-    <div class="dd-voice-center">
-
-        <button
-            type="button"
-            id="ddVoiceButton"
-            class="dd-mic-button"
-            onclick="ddStartListening()"
-        >
-            🎙️
-        </button>
-
-        <div
-            id="ddVoiceStatus"
-            class="dd-voice-status"
-        >
-            Tap the microphone and speak
-        </div>
-
-        <div
-            id="ddVoiceText"
-            class="dd-voice-text"
-        ></div>
-
-        <div
-            id="ddVoiceResponse"
-            class="dd-voice-response"
-        ></div>
-
-    </div>
-
-
-    <div class="dd-voice-examples">
-
-        <span>Try saying:</span>
-
-        <button onclick="ddUseExample('reminder')">
-            🔔 My next reminder
-        </button>
-
-        <button onclick="ddUseExample('medicine')">
-            💊 My medicine
-        </button>
-
-        <button onclick="ddUseExample('game')">
-            🧠 Start a game
-        </button>
-
-    </div>
-
-</section>
+</div>
 
 
 <style>
 
-.dd-voice-card {
+.voice-assistant {
 
-    margin: 30px 0;
+    max-width: 850px;
 
-    padding: 32px;
+    margin: 30px auto;
 
-    border-radius: 28px;
+    padding: 25px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff8ed,
-            #f4f8ef
-        );
+    background: #ffffff;
 
-    border: 1px solid #eadfce;
+    border-radius: 20px;
 
-    box-shadow:
-        0 15px 40px rgba(
-            73,
-            65,
-            50,
-            0.08
-        );
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+    font-family: Arial, sans-serif;
 
 }
 
-
-.dd-voice-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 25px;
-
-    align-items: flex-start;
-
-}
-
-
-.dd-voice-label {
-
-    color: #d97745;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-}
-
-
-.dd-voice-card h2 {
-
-    margin: 8px 0;
-
-    color: #24483b;
-
-}
-
-
-.dd-voice-card p {
-
-    color: #68756f;
+.voice-header h2 {
 
     margin: 0;
 
+    color: #333;
+
 }
 
+.voice-header p {
 
-.dd-language-box {
+    color: #777;
+
+    margin-top: 8px;
+
+}
+
+.voice-controls {
+
+    margin-top: 25px;
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 7px;
+    gap: 12px;
 
 }
 
+.voice-controls label {
 
-.dd-language-box label {
+    font-weight: bold;
 
-    font-size: 13px;
-
-    font-weight: 700;
-
-    color: #526158;
+    color: #444;
 
 }
 
+#voiceLanguage {
 
-.dd-language-box select {
+    padding: 12px;
 
-    border: 1px solid #d9cfbf;
+    border-radius: 10px;
 
-    background: white;
+    border: 1px solid #ddd;
 
-    padding: 11px 15px;
-
-    border-radius: 12px;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    max-width: 250px;
+    font-size: 16px;
 
 }
 
+#voiceButton {
 
-.dd-voice-center {
-
-    text-align: center;
-
-    padding: 30px 10px 20px;
-
-}
-
-
-.dd-mic-button {
-
-    width: 100px;
-
-    height: 100px;
-
-    border-radius: 50%;
+    padding: 15px;
 
     border: none;
 
-    background: #e78b55;
+    border-radius: 12px;
+
+    background: #6c63ff;
 
     color: white;
 
-    font-size: 40px;
+    font-size: 17px;
 
     cursor: pointer;
 
-    box-shadow:
-        0 10px 30px rgba(
-            231,
-            139,
-            85,
-            0.30
-        );
+}
 
-    transition: 0.25s;
+#voiceButton:hover {
+
+    opacity: 0.9;
 
 }
 
+.voice-status {
 
-.dd-mic-button:hover {
+    margin-top: 15px;
 
-    transform: scale(1.06);
+    padding: 12px;
 
-}
+    border-radius: 10px;
 
+    background: #f5f5f5;
 
-.dd-mic-button.listening {
+    color: #555;
 
-    animation: ddPulse 1.2s infinite;
-
-}
-
-
-@keyframes ddPulse {
-
-    0% {
-        box-shadow:
-            0 0 0 0 rgba(
-                231,
-                139,
-                85,
-                0.45
-            );
-    }
-
-    70% {
-        box-shadow:
-            0 0 0 25px rgba(
-                231,
-                139,
-                85,
-                0
-            );
-    }
-
-    100% {
-        box-shadow:
-            0 0 0 0 rgba(
-                231,
-                139,
-                85,
-                0
-            );
-    }
+    text-align: center;
 
 }
 
+.voice-result {
 
-.dd-voice-status {
+    display: grid;
 
-    margin-top: 18px;
+    grid-template-columns: 1fr 1fr;
 
-    color: #65716b;
+    gap: 15px;
 
-    font-weight: 600;
-
-}
-
-
-.dd-voice-text {
-
-    margin-top: 12px;
-
-    font-size: 17px;
-
-    color: #24483b;
-
-    min-height: 25px;
+    margin-top: 20px;
 
 }
 
+.voice-box {
 
-.dd-voice-response {
-
-    margin: 18px auto 0;
-
-    max-width: 600px;
-
-    padding: 14px 18px;
+    padding: 18px;
 
     border-radius: 15px;
 
-    background: white;
-
-    color: #24483b;
-
-    display: none;
+    background: #f8f8ff;
 
 }
 
+.voice-box h3 {
 
-.dd-voice-examples {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
+    margin-top: 0;
 
 }
 
+.voice-box p {
 
-.dd-voice-examples span {
+    color: #555;
 
-    color: #7b827d;
-
-    font-size: 13px;
-
-}
-
-
-.dd-voice-examples button {
-
-    border: 1px solid #ded5c7;
-
-    background: white;
-
-    padding: 10px 14px;
-
-    border-radius: 12px;
-
-    cursor: pointer;
+    min-height: 40px;
 
 }
 
 
 @media (max-width: 700px) {
 
-    .dd-voice-header {
+    .voice-result {
 
-        flex-direction: column;
-
-    }
-
-    .dd-language-box {
-
-        width: 100%;
-
-    }
-
-    .dd-language-box select {
-
-        width: 100%;
-
-    }
-
-    .dd-language-box select {
-
-        max-width: none;
+        grid-template-columns: 1fr;
 
     }
 
@@ -455,407 +245,136 @@
 
 <script>
 
-let ddRecognition = null;
+let recognition;
 
-let ddLanguage = "en";
-
-const ddPatientId = "{{ patient_id }}";
-
-
-function ddChangeLanguage(language) {
-
-    ddLanguage = language;
-
-    if (ddRecognition) {
-
-        ddRecognition.stop();
-
-        ddRecognition = null;
-
-    }
-
-    document.getElementById(
-        "ddVoiceStatus"
-    ).innerText = ddGetText("speak");
-
-}
-
-
-function ddGetSpeechCode(language) {
-
-    const languages = {
-
-        en: "en-IN",
-
-        as: "as-IN",
-
-        bn: "bn-IN",
-
-        brx: "br-IN",
-
-        mni: "mni-IN",
-
-        kha: "kha-IN",
-
-        lus: "lus-IN",
-
-        ne: "ne-NP",
-
-        kok: "kok-IN",
-
-        hi: "hi-IN",
-
-        mr: "mr-IN"
-
-    };
-
-    return languages[language] || "en-IN";
-
-}
-
-
-function ddGetText(key) {
-
-    const text = {
-
-        en: {
-            listening: "Listening...",
-            speak: "Tap the microphone and speak",
-            unsupported: "Voice recognition is not supported in this browser.",
-            error: "Sorry, I could not understand that."
-        },
-
-        as: {
-            listening: "মই শুনি আছোঁ...",
-            speak: "মাইক্ৰ'ফোনত টিপি কথা কওক",
-            unsupported: "এই ব্ৰাউজাৰত ভইচ সুবিধা উপলব্ধ নহয়।",
-            error: "ক্ষমা কৰিব, মই বুজিব নোৱাৰিলোঁ।"
-        },
-
-        bn: {
-            listening: "আমি শুনছি...",
-            speak: "মাইক্রোফোনে চাপ দিয়ে কথা বলুন",
-            unsupported: "এই ব্রাউজারে ভয়েস সুবিধা উপলব্ধ নয়।",
-            error: "দুঃখিত, আমি বুঝতে পারিনি।"
-        },
-
-        brx: {
-            listening: "आं सुननो हागौ...",
-            speak: "माइक्रोफोन दबायनानै बुं",
-            unsupported: "बे ब्राउजराव भ्वाइस सुविधा नाय।",
-            error: "माफ खालाम, आं बुजिनो हायाखै।"
-        },
-
-        mni: {
-            listening: "ꯑꯩ ꯈꯪꯗꯣꯏ...",
-            speak: "ꯃꯥꯏꯀ꯭ꯔꯣꯐꯣꯅꯗ ꯅꯝꯃꯨꯗꯅ ꯂꯣꯜ ꯕꯤꯔꯣ",
-            unsupported: "ꯑꯁꯤ ꯕ꯭ꯔꯥꯎꯖꯔꯗ ꯚꯣꯏꯁ ꯐꯤꯆꯔ ꯂꯩꯇꯦ",
-            error: "ꯃꯥꯐꯝ, ꯑꯩꯅ ꯈꯪꯕ ꯉꯝꯗꯦ"
-        },
-
-        kha: {
-            listening: "Nga sngap...",
-            speak: "Kyntait ïa ka microphone bad kren",
-            unsupported: "Ka voice recognition kam treikam ha kane ka browser.",
-            error: "Map, ngam lah ban sngewthuh."
-        },
-
-        lus: {
-            listening: "Ka lo...",
-            speak: "Microphone hmangin thusawi rawh",
-            unsupported: "He browser-ah voice recognition a awm lo.",
-            error: "Nga ngaihdam, ka hrethiam lo."
-        },
-
-        ne: {
-            listening: "म सुनिरहेको छु...",
-            speak: "माइक्रोफोन थिचेर बोल्नुहोस्",
-            unsupported: "यो ब्राउजरमा आवाज सुविधा उपलब्ध छैन।",
-            error: "माफ गर्नुहोस्, मैले बुझिनँ।"
-        },
-
-        kok: {
-            listening: "Angni...",
-            speak: "Microphone dabaiyano kotha ko",
-            unsupported: "He browser-a voice सुविधा उपलब्ध na.",
-            error: "Maf kor, hanv mhaka somzunk zaina."
-        },
-
-        hi: {
-            listening: "मैं सुन रहा हूँ...",
-            speak: "माइक्रोफोन दबाकर बोलें",
-            unsupported: "इस ब्राउज़र में वॉइस सुविधा उपलब्ध नहीं है।",
-            error: "माफ़ कीजिए, मैं समझ नहीं पाया।"
-        },
-
-        mr: {
-            listening: "मी ऐकत आहे...",
-            speak: "मायक्रोफोन दाबून बोला",
-            unsupported: "या ब्राउझरमध्ये व्हॉइस सुविधा उपलब्ध नाही.",
-            error: "माफ करा, मला समजले नाही."
-        }
-
-    };
-
-    return text[ddLanguage]?.[key]
-        || text["en"][key];
-
-}
-
-
-function ddCreateRecognition() {
+function startVoiceAssistant() {
 
     const SpeechRecognition =
         window.SpeechRecognition ||
         window.webkitSpeechRecognition;
 
-
     if (!SpeechRecognition) {
 
-        return null;
+        document.getElementById("voiceStatus").innerText =
+            "Voice recognition is not supported in this browser.";
+
+        return;
 
     }
 
+    const language =
+        document.getElementById("voiceLanguage").value;
 
-    const recognition =
-        new SpeechRecognition();
+    recognition = new SpeechRecognition();
 
+    recognition.lang = language;
 
     recognition.continuous = false;
 
     recognition.interimResults = false;
 
-    recognition.lang =
-        ddGetSpeechCode(ddLanguage);
+    recognition.maxAlternatives = 1;
 
+    document.getElementById("voiceStatus").innerText =
+        "🎤 Listening...";
 
-    recognition.onstart = function () {
+    document.getElementById("voiceButton").innerText =
+        "🔴 Listening...";
 
-        const button =
-            document.getElementById(
-                "ddVoiceButton"
-            );
-
-        button.classList.add(
-            "listening"
-        );
-
-        document.getElementById(
-            "ddVoiceStatus"
-        ).innerText =
-            ddGetText("listening");
-
-    };
+    recognition.start();
 
 
     recognition.onresult = function(event) {
 
-        const command =
+        const transcript =
             event.results[0][0].transcript;
 
+        document.getElementById("voiceText").innerText =
+            transcript;
 
-        document.getElementById(
-            "ddVoiceText"
-        ).innerText =
-            "“" + command + "”";
+        document.getElementById("voiceStatus").innerText =
+            "Processing...";
 
-
-        ddSendCommand(command);
+        processVoiceCommand(transcript);
 
     };
 
 
     recognition.onerror = function(event) {
 
-        console.log(
-            "Voice error:",
-            event.error
-        );
+        document.getElementById("voiceStatus").innerText =
+            "Could not understand your voice. Please try again.";
 
-
-        document.getElementById(
-            "ddVoiceStatus"
-        ).innerText =
-            ddGetText("error");
-
-
-        ddResetMic();
+        document.getElementById("voiceButton").innerText =
+            "🎤 Tap to Speak";
 
     };
 
 
     recognition.onend = function() {
 
-        ddResetMic();
+        document.getElementById("voiceButton").innerText =
+            "🎤 Tap to Speak";
 
     };
 
+}
 
-    return recognition;
+
+function processVoiceCommand(text) {
+
+    const lowerText = text.toLowerCase();
+
+    let response =
+        "I heard you. I am still learning this command.";
+
+    if (
+        lowerText.includes("memory") ||
+        lowerText.includes("game")
+    ) {
+
+        response =
+            "Let's open your cognitive games.";
+
+    }
+
+    else if (
+        lowerText.includes("reminder")
+    ) {
+
+        response =
+            "I can help you check your reminders.";
+
+    }
+
+    else if (
+        lowerText.includes("progress")
+    ) {
+
+        response =
+            "Let's check your cognitive progress.";
+
+    }
+
+    else if (
+        lowerText.includes("hello") ||
+        lowerText.includes("hi")
+    ) {
+
+        response =
+            "Hello! How can I help you today?";
+
+    }
+
+    document.getElementById("assistantResponse").innerText =
+        response;
+
+    speakResponse(response);
 
 }
 
 
-function ddStartListening() {
-
-    if (!ddRecognition) {
-
-        ddRecognition =
-            ddCreateRecognition();
-
-    }
-
-
-    if (!ddRecognition) {
-
-        alert(
-            ddGetText("unsupported")
-        );
-
-        return;
-
-    }
-
-
-    ddRecognition.lang =
-        ddGetSpeechCode(ddLanguage);
-
-
-    document.getElementById(
-        "ddVoiceResponse"
-    ).style.display = "none";
-
-
-    try {
-
-        ddRecognition.start();
-
-    } catch(error) {
-
-        console.log(error);
-
-    }
-
-}
-
-
-function ddResetMic() {
-
-    const button =
-        document.getElementById(
-            "ddVoiceButton"
-        );
-
-    button.classList.remove(
-        "listening"
-    );
-
-
-    document.getElementById(
-        "ddVoiceStatus"
-    ).innerText =
-        ddGetText("speak");
-
-}
-
-
-async function ddSendCommand(command) {
-
-    try {
-
-        const response =
-            await fetch(
-                "/ai/voice/command/",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        command: command,
-
-                        patient_id:
-                            ddPatientId,
-
-                        language:
-                            ddLanguage
-
-                    })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.error ||
-                "Something went wrong."
-            );
-
-        }
-
-
-        const responseBox =
-            document.getElementById(
-                "ddVoiceResponse"
-            );
-
-
-        responseBox.innerText =
-            "🔊 " + data.response;
-
-
-        responseBox.style.display =
-            "block";
-
-
-        ddSpeak(data.response);
-
-
-        if (data.redirect) {
-
-            setTimeout(
-                function() {
-
-                    window.location.href =
-                        data.redirect;
-
-                },
-                1800
-            );
-
-        }
-
-
-    } catch(error) {
-
-        console.error(error);
-
-        document.getElementById(
-            "ddVoiceResponse"
-        ).innerText =
-            "⚠️ " + error.message;
-
-        document.getElementById(
-            "ddVoiceResponse"
-        ).style.display =
-            "block";
-
-    }
-
-}
-
-
-function ddSpeak(text) {
+function speakResponse(text) {
 
     if (!("speechSynthesis" in window)) {
 
@@ -863,120 +382,20 @@ function ddSpeak(text) {
 
     }
 
-
-    window.speechSynthesis.cancel();
-
+    const language =
+        document.getElementById("voiceLanguage").value;
 
     const speech =
-        new SpeechSynthesisUtterance(
-            text
-        );
+        new SpeechSynthesisUtterance(text);
 
+    speech.lang = language;
 
-    speech.lang =
-        ddGetSpeechCode(ddLanguage);
-
-
-    speech.rate = 0.85;
+    speech.rate = 0.9;
 
     speech.pitch = 1;
 
-
-    window.speechSynthesis.speak(
-        speech
-    );
-
-}
-
-
-function ddUseExample(type) {
-
-    const examples = {
-
-        en: {
-            reminder: "My next reminder",
-            medicine: "My medicine",
-            game: "Start a game"
-        },
-
-        as: {
-            reminder: "মোৰ পৰৱৰ্তী ৰিমাইণ্ডাৰ",
-            medicine: "মোৰ ঔষধ",
-            game: "এটা গেম আৰম্ভ কৰক"
-        },
-
-        bn: {
-            reminder: "আমার পরবর্তী রিমাইন্ডার",
-            medicine: "আমার ওষুধ",
-            game: "একটি গেম শুরু করুন"
-        },
-
-        brx: {
-            reminder: "आंनि उनाव थांनो होग्रा रिमाइंडार",
-            medicine: "आंनि दावाइ",
-            game: "गेम जागाय"
-        },
-
-        mni: {
-            reminder: "ꯑꯩꯒꯤ ꯅꯦꯛꯁꯠ ꯔꯤꯃꯥꯏꯟꯗꯔ",
-            medicine: "ꯑꯩꯒꯤ ꯑꯣꯁꯨꯗ",
-            game: "ꯒꯦꯝ ꯍꯧꯖꯤꯜꯂꯨ"
-        },
-
-        kha: {
-            reminder: "Ka jingkynmaw kaba wan",
-            medicine: "Ka dawai jong nga",
-            game: "Sdang ïa ka game"
-        },
-
-        lus: {
-            reminder: "Ka hriat reng ka lo",
-            medicine: "Ka damdawi ka",
-            game: "Game tan rawh"
-        },
-
-        ne: {
-            reminder: "मेरो अर्को रिमाइन्डर",
-            medicine: "मेरो औषधि",
-            game: "गेम सुरु गर्नुहोस्"
-        },
-
-        kok: {
-            reminder: "Mhozo favo reminder",
-            medicine: "Mhozo davai",
-            game: "Game suru kor"
-        },
-
-        hi: {
-            reminder: "मेरी अगली रिमाइंडर",
-            medicine: "मेरी दवाई",
-            game: "गेम शुरू करो"
-        },
-
-        mr: {
-            reminder: "माझी पुढची आठवण",
-            medicine: "माझी औषधे",
-            game: "गेम सुरू करा"
-        }
-
-    };
-
-
-    const command =
-        examples[ddLanguage]?.[type]
-        || examples["en"][type];
-
-
-    document.getElementById(
-        "ddVoiceText"
-    ).innerText =
-        "“" + command + "”";
-
-
-    ddSendCommand(command);
+    window.speechSynthesis.speak(speech);
 
 }
 
 </script>
-
-{% endif %}
